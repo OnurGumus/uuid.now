@@ -193,7 +193,7 @@
     }
 
     button {
-        border: none;
+        border: 1px solid transparent;
         padding: 0.5rem 1rem;
         display: inline-flex;
         align-items: center;
@@ -286,130 +286,171 @@
         }
     }
 
-
-
 }
 
-body {
-    background: #222;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    color: #fff;
-    text-align: center;
-    line-height: 1.5;
-}
-
-
-
-h1 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-p.intro {
-    font-size: 1rem;
-    color: #ccc;
-}
-
-
-
-
-button {
-    cursor: pointer;
-    font-size: 1rem;
-    background: #ff0062;
-    color: #fff;
-    border-radius: 4px;
-    transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
-
-    svg {
-        fill: currentColor;
+@layer appearance {
+    body {
+        background: #222;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        color: #fff;
     }
 
-    &:hover {
-        background: #ff397d;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    p.intro {
+        color: #ccc;
     }
 
-    &:active {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    button {
+        cursor: pointer;
+        background: #ff0062;
+        color: #fff;
+        border-radius: 4px;
+
+        svg {
+            fill: currentColor;
+        }
+
+        &:hover {
+            background: #ff397d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        &:active {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
     }
-}
 
+    .board-container {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        background: #1a1a1a;
+    }
 
-/* The flipping board for 36 chars, inline in one row */
-.board-container {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    background: #1a1a1a;
-}
+    .flip {
+        background: #111;
+        border-radius: 4px;
 
-.board {
-    white-space: nowrap;
-}
+        ul {
+            pointer-events: none;
 
-.flip {
-    vertical-align: top;
-    background: #111;
-    border-radius: 4px;
+            li {
+                line-height: 35px;
+                font-size: 18px;
+                text-align: center;
+                color: gold;
+                font-family: monospace;
+            }
+        }
+    }
 
+    .final-char {
+        color: #fff;
+        pointer-events: auto;
+    }
 
+    .faq {
+        details {
+            background: #333;
+            border-radius: 4px;
+            color: #ccc;
+            cursor: pointer;
+        }
 
-    ul {
-        transition: top 0.1s linear;
-        pointer-events: none;
-        -webkit-user-select: none;
-        user-select: none;
-
-        li {
-            line-height: 35px;
-            font-size: 18px;
-            text-align: center;
-            color: gold;
-            font-family: monospace;
+        summary {
+            color: #fff;
+            outline: none;
         }
     }
 }
 
+@layer typography {
+    body {
+        text-align: center;
+        line-height: 1.5;
+    }
 
-.final-char {
-    line-height: 35px;
-    font-size: 18px;
-    font-family: monospace;
-    color: #fff;
-    text-align: center;
-    pointer-events: auto;
-    -webkit-user-select: text;
-    user-select: text;
-    white-space: nowrap;
+    h1 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    p.intro {
+        font-size: 1rem;
+    }
+
+
+    button {
+        font-size: 1rem;
+
+    }
+
+
+    /* The flipping board for 36 chars, inline in one row */
+
+    .board {
+        white-space: nowrap;
+    }
+
+    .flip {
+        vertical-align: top;
+
+        ul {
+            transition: top 0.1s linear;
+            -webkit-user-select: none;
+            user-select: none;
+
+            li {
+                font-size: 18px;
+                text-align: center;
+                font-family: monospace;
+            }
+        }
+    }
+
+
+    .final-char {
+        line-height: 35px;
+        font-size: 18px;
+        font-family: monospace;
+        text-align: center;
+        -webkit-user-select: text;
+        user-select: text;
+        white-space: nowrap;
+    }
+
+    .faq {
+        text-align: left;
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        summary {
+            font-weight: 500;
+            outline: none;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+    }
 }
 
+@layer animation {
 
-.faq {
-    text-align: left;
 
-    h2 {
-        font-size: 1.3rem;
-        font-weight: 600;
+    button {
+        transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
     }
 
-    details {
-        background: #333;
-        border-radius: 4px;
-        color: #ccc;
-        cursor: pointer;
+    .flip {
+        ul {
+            transition: top 0.1s linear;
+        }
     }
 
-    summary {
-        font-weight: 500;
-        color: #fff;
-        outline: none;
-    }
-
-    p {
-        font-size: 0.95rem;
-        line-height: 1.4;
-    }
 }
 
 /* Example ad placeholders */
