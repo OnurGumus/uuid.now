@@ -206,7 +206,8 @@
 
         &:hover {
             transform: translateY(-2px);
-            border: 1px solid #ff397d;
+            border-width: 1px;
+            border-style: solid;
         }
 
         &:active {
@@ -218,7 +219,8 @@
         margin: 2rem auto;
         display: inline-block;
         padding: 1rem;
-        border: 1px solid #444;
+        border-width: 1px;
+        border-style: solid;
     }
 
     .board {
@@ -291,7 +293,6 @@
 @layer appearance {
     body {
         background: #222;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         color: #fff;
     }
 
@@ -311,6 +312,7 @@
 
         &:hover {
             background: #ff397d;
+            border-color: #ff397d;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
@@ -323,6 +325,7 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         background: #1a1a1a;
+        border-color: #444;
     }
 
     .flip {
@@ -364,6 +367,7 @@
 
 @layer typography {
     body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         text-align: center;
         line-height: 1.5;
     }
@@ -395,7 +399,6 @@
         vertical-align: top;
 
         ul {
-            transition: top 0.1s linear;
             -webkit-user-select: none;
             user-select: none;
 
@@ -406,7 +409,6 @@
             }
         }
     }
-
 
     .final-char {
         line-height: 35px;
