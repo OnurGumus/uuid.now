@@ -1,450 +1,192 @@
-@layer reset {
+ /* Basic Reset & Layout */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
+body {
+    background: #222;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    line-height: 1.5;
+}
+
+header {
+    margin-bottom: 1rem;
+}
+
+h1 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+p.intro {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+main {
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+/* Buttons + Icon Styling */
+.top-buttons,
+.bottom-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    background: #ff0062;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
+
+    svg {
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
     }
 
-    :root:has(:modal) {
-        overflow: clip;
+    &:hover {
+        background: #ff397d;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #ff397d;
     }
 
-    :root {
-        interpolate-size: allow-keywords; 
-    }
-
-    body {
-        margin: unset;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-        font: inherit;
-    }
-
-    img,
-    picture,
-    svg,
-    canvas {
-        display: block;
-        max-inline-size: 100%;
-        block-size: auto;
-    }
-
-    p,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        overflow-wrap: break-word;
-    }
-
-    /* 8. Improve line wrapping */
-    p {
-        text-wrap: pretty;
-        -webkit-hyphens: auto;
-        hyphens: auto;
-        overflow-wrap: break-word;
-
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        text-wrap: balance;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
-
-    @view-transition {
-        navigation: auto;
-    }
-
-    *:not(:defined) {
-        visibility: hidden;
-    }
-
-
-    /* Prevent font size inflation */
-    html {
-        -moz-text-size-adjust: none;
-        -webkit-text-size-adjust: none;
-        text-size-adjust: none;
-    }
-
-    /* Remove default margin in favour of better control in authored CSS */
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    p,
-    figure,
-    blockquote,
-    dl,
-    dd {
-        margin-block-end: 0;
-    }
-
-    /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-    ul[role='list'],
-    ol[role='list'] {
-        list-style: none;
-    }
-
-    /* Set core body defaults */
-    body {
-        min-height: 100vb;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    * {
-        line-height: 1.5;
-    }
-
-
-
-    /* Balance text wrapping on headings */
-    h1,
-    h2,
-    h3,
-    h4 {
-        text-wrap: balance;
-    }
-
-    /* A elements that don't have a class get default styles */
-    a:not([class]) {
-        text-decoration-skip-ink: auto;
-        color: currentColor;
-        text-underline-offset: 0.15em;
-        text-decoration-thickness: max(1px, 0.0625rem);
-    }
-
-    /* Make images easier to work with */
-    img,
-    picture {
-        max-inline-size: 100%;
-        display: block;
-    }
-
-    /* Inherit fonts for inputs and buttons */
-    input,
-    button,
-    textarea,
-    select {
-        font-family: inherit;
-        font-size: inherit;
-    }
-
-    /* Make sure textareas without a rows attribute are not tiny */
-    textarea:not([rows]) {
-        min-height: 10em;
-    }
-
-    /* Anything that has been anchored to should have extra scroll margin */
-    :target {
-        scroll-margin-block: 5ex;
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 }
 
-@layer layout {
-    body {
-        padding: 1rem;
+
+/* The flipping board for 36 chars, inline in one row */
+.board-container {
+    margin: 2rem auto;
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background: #1a1a1a;
+}
+
+.board {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.flip {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 20px;
+    height: 35px;
+    margin-right: 5px;
+    background: #111;
+    overflow: hidden;
+    border-radius: 4px;
+
+    &:last-child {
+        margin-right: 0;
     }
 
-    header {
-        margin-block-end: 1rem;
-    }
-
-    h1 {
-        margin: 1rem 0 0.5rem;
-    }
-
-    p.intro {
-        max-inline-size: 600px;
-        margin: 0 auto 2rem;
-    }
-
-    main {
-        margin: 0 auto;
-        max-inline-size: 900px;
-    }
-
-    /* Buttons + Icon Styling */
-    .top-buttons,
-    .bottom-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin: 1rem 0;
-    }
-
-    button {
-
-        border: 1px solid transparent;
-        /* ensures consistent button size */
-        padding: 0.5rem 1rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-
-        svg {
-            inline-size: 1em;
-            block-size: 1em;
-        }
-
-        &:hover {
-            transform: translateY(-2px);
-            border-width: 1px;
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
-    }
-
-    /* The flipping board for 36 chars, inline in one row */
-    .board-container {
-        margin: 2rem auto;
-        display: inline-block;
-        padding: 1rem;
-        border-width: 1px;
-     
-    }
-
-    .board {
-        display: inline-block;
-    }
-
-
-    .flip {
-        display: inline-block;
-        position: relative;
-        inline-size: 20px;
-        block-size: 35px;
-        margin-inline-end: 5px;
-        overflow: hidden;
-
-        &:last-child {
-            margin-inline-end: 0;
-        }
-
-        ul {
-            position: absolute;
-            inset-block-start: 0;
-            inset-block-end: 0;
-
-            li {
-                display: inline-block;
-                inline-size: 20px;
-                block-size: 35px;
-            }
-        }
-    }
-
-    .final-char {
+    ul {
         position: absolute;
-        display: inline-block;
-    }
+        top: 0;
+        left: 0;
+        transition: top 0.1s linear;
+        pointer-events: none;
+        -webkit-user-select: none;
+        user-select: none;
 
-    .faq {
-        margin: 2rem auto 3rem;
-        max-inline-size: 700px;
-
-        h2 {
-            margin-block-end: 1rem;
-        }
-
-        details {
-            margin-block-end: 0.5rem;
-            padding: 0.5rem;
-        }
-
-        p {
-            margin-block-start: 0.5rem;
-        }
-    }
-
-}
-
-@layer appearance {
-
-    body {
-        background: #222;
-        color: #fff;
-    }
-
-    p.intro {
-        color: #ccc;
-    }
-
-    button {
-        cursor: pointer;
-        background: #ff0062;
-        color: #fff;
-        /* ensures consistent button size */
-        border-radius: 4px;
-
-        svg {
-            fill: currentColor;
-        }
-
-        &:hover {
-            border-color:#ff397d;
-            border-style: solid;
-            background: #ff397d;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        &:active {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-    }
-
-    .board-container {
-        border-color: #444;
-        border-style: solid;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        background: #1a1a1a;
-    }
-
-    .flip {
-        background: #111;
-        border-radius: 4px;
-
-        ul {
-            pointer-events: none;
-
-            li {
-                color: gold;
-            }
-        }
-    }
-
-    .final-char {
-        line-height: 35px;
-        color: #fff;
-        pointer-events: auto;
-    }
-
-    .faq {
-        details {
-            background: #333;
-            border-radius: 4px;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        summary {
-            color: #fff;
-            outline: none;
-        }
-
-        p {
-            font-size: 0.95rem;
+        li {
+            display: inline-block;
+            width: 20px;
+            height: 35px;
+            line-height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: gold;
+            font-family: monospace;
         }
     }
 }
 
-@layer typography {
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-        text-align: center;
-        line-height: 1.5;
-    }
 
+.final-char {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 35px;
+    font-size: 18px;
+    font-family: monospace;
+    color: #fff;
+    text-align: center;
+    pointer-events: auto;
+    -webkit-user-select: text;
+    user-select: text;
+    display: inline-block;
+    white-space: nowrap;
+}
 
-    h1 {
-        font-size: 1.6rem;
+/* Footer & FAQ styling */
+footer {
+    margin: 2rem 0 1rem;
+}
+
+.faq {
+    text-align: left;
+    margin: 2rem auto 3rem;
+    max-width: 700px;
+
+    h2 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
         font-weight: 600;
-        letter-spacing: 1px;
     }
 
-    button {
-        font-size: 1rem;
+    details {
+        background: #333;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        color: #ccc;
+        cursor: pointer;
     }
 
-    .board {
-        white-space: nowrap;
+    summary {
+        font-weight: 500;
+        color: #fff;
+        outline: none;
     }
 
-    .flip {
-        vertical-align: top;
-
-        ul {
-            -webkit-user-select: none;
-            user-select: none;
-
-            li {
-                line-height: 35px;
-                font-size: 18px;
-                text-align: center;
-                font-family: monospace;
-            }
-        }
+    p {
+        margin-top: 0.5rem;
+        font-size: 0.95rem;
+        line-height: 1.4;
     }
-
-
-    .final-char {
-        line-height: 35px;
-        font-size: 18px;
-        font-family: monospace;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-
-    .faq {
-        text-align: start;
-
-        h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-    
-        summary {
-            font-weight: 500;
-        }
-
-        p {
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-    }
-}
-
-@layer animations {
-
-    button {
-        transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
-    }
-
-    .flip {
-        ul {
-            transition: top 0.1s linear;
-        }
-    }
-
 }
 
 /* Example ad placeholders */
