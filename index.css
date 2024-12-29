@@ -1,205 +1,422 @@
- /* Basic Reset & Layout */
- * {
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
- }
+@layer reset {
 
- body {
-     background: #222;
-     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-     color: #fff;
-     text-align: center;
-     padding: 1rem;
-     line-height: 1.5;
- }
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
- header {
-     margin-bottom: 1rem;
- }
+    :root:has(:modal) {
+        overflow: clip;
+    }
 
- h1 {
-     margin: 1rem 0 0.5rem;
-     font-size: 1.6rem;
-     font-weight: 600;
-     letter-spacing: 1px;
- }
+    body {
+        margin: unset;
+    }
 
- p.intro {
-     max-width: 600px;
-     margin: 0 auto 2rem;
-     font-size: 1rem;
-     color: #ccc;
- }
+    button,
+    input,
+    textarea,
+    select {
+        font: inherit;
+    }
 
- main {
-     margin: 0 auto;
-     max-width: 900px;
- }
+    img,
+    picture,
+    svg,
+    canvas {
+        display: block;
+        max-inline-size: 100%;
+        block-size: auto;
+    }
 
- /* Buttons + Icon Styling */
- .top-buttons,
- .bottom-buttons {
-     display: flex;
-     gap: 1rem;
-     justify-content: center;
-     margin: 1rem 0;
- }
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+    }
 
- button {
-     cursor: pointer;
-     font-size: 1rem;
-     background: #ff0062;
-     color: #fff;
-     border: none;
-     border-radius: 4px;
-     padding: 0.5rem 1rem;
-     display: inline-flex;
-     align-items: center;
-     gap: 0.4rem;
-     transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
+    /* 8. Improve line wrapping */
+    p {
+        text-wrap: pretty;
+        hyphens: auto;
+        overflow-wrap: break-word;
 
-     svg {
-         width: 1em;
-         height: 1em;
-         fill: currentColor;
-     }
+    }
 
-     &:hover {
-         background: #ff397d;
-         transform: translateY(-2px);
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-         border: 1px solid #ff397d;
-     }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
 
-     &:active {
-         transform: translateY(0);
-         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-     }
- }
+    @media (prefers-reduced-motion: reduce) {
 
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
 
- /* The flipping board for 36 chars, inline in one row */
- .board-container {
-     margin: 2rem auto;
-     display: inline-block;
-     padding: 1rem;
-     border: 1px solid #444;
-     border-radius: 8px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-     background: #1a1a1a;
- }
+    @view-transition {
+        navigation: auto;
+    }
 
- .board {
-     display: inline-block;
-     white-space: nowrap;
- }
-
- .flip {
-     display: inline-block;
-     vertical-align: top;
-     position: relative;
-     width: 20px;
-     height: 35px;
-     margin-right: 5px;
-     background: #111;
-     overflow: hidden;
-     border-radius: 4px;
-
-     &:last-child {
-         margin-right: 0;
-     }
-
-     ul {
-         position: absolute;
-         top: 0;
-         left: 0;
-         transition: top 0.1s linear;
-         pointer-events: none;
-         -webkit-user-select: none;
-         user-select: none;
-
-         li {
-             display: inline-block;
-             width: 20px;
-             height: 35px;
-             line-height: 35px;
-             font-size: 18px;
-             text-align: center;
-             color: gold;
-             font-family: monospace;
-         }
-     }
- }
+    *:not(:defined) {
+        visibility: hidden;
+    }
 
 
- .final-char {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     line-height: 35px;
-     font-size: 18px;
-     font-family: monospace;
-     color: #fff;
-     text-align: center;
-     pointer-events: auto;
-     -webkit-user-select: text;
-     user-select: text;
-     display: inline-block;
-     white-space: nowrap;
- }
+    /* Prevent font size inflation */
+    html {
+        -moz-text-size-adjust: none;
+        -webkit-text-size-adjust: none;
+        text-size-adjust: none;
+    }
 
- /* Footer & FAQ styling */
- footer {
-     margin: 2rem 0 1rem;
- }
+    /* Remove default margin in favour of better control in authored CSS */
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    figure,
+    blockquote,
+    dl,
+    dd {
+        margin-block-end: 0;
+    }
 
- .faq {
-     text-align: left;
-     margin: 2rem auto 3rem;
-     max-width: 700px;
+    /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+    ul[role='list'],
+    ol[role='list'] {
+        list-style: none;
+    }
 
-     h2 {
-         margin-bottom: 1rem;
-         font-size: 1.3rem;
-         font-weight: 600;
-     }
+    /* Set core body defaults */
+    body {
+        min-height: 100vb;
+        -webkit-font-smoothing: antialiased;
+    }
 
-     details {
-         background: #333;
-         border-radius: 4px;
-         margin-bottom: 0.5rem;
-         padding: 0.5rem;
-         color: #ccc;
-         cursor: pointer;
-     }
+    * {
+        line-height: 1.5;
+    }
 
-     summary {
-         font-weight: 500;
-         color: #fff;
-         outline: none;
-     }
 
-     p {
-         margin-top: 0.5rem;
-         font-size: 0.95rem;
-         line-height: 1.4;
-     }
- }
 
- /* Example ad placeholders */
- .ad-placeholder {
-     width: 100%;
-     background: #555;
-     color: #fff;
-     text-align: center;
-     padding: 1rem;
-     border-radius: 8px;
-     margin: 2rem 0;
-     max-width: 728px;
-     /* typical large banner width */
-     margin-left: auto;
-     margin-right: auto;
- }
+    /* Balance text wrapping on headings */
+    h1,
+    h2,
+    h3,
+    h4 {
+        text-wrap: balance;
+    }
+
+    /* A elements that don't have a class get default styles */
+    a:not([class]) {
+        text-decoration-skip-ink: auto;
+        color: currentColor;
+        text-underline-offset: 0.15em;
+        text-decoration-thickness: max(1px, 0.0625rem);
+    }
+
+    /* Make images easier to work with */
+    img,
+    picture {
+        max-inline-size: 100%;
+        display: block;
+    }
+
+    /* Inherit fonts for inputs and buttons */
+    input,
+    button,
+    textarea,
+    select {
+        font-family: inherit;
+        font-size: inherit;
+    }
+
+    /* Make sure textareas without a rows attribute are not tiny */
+    textarea:not([rows]) {
+        min-height: 10em;
+    }
+
+    /* Anything that has been anchored to should have extra scroll margin */
+    :target {
+        scroll-margin-block: 5ex;
+    }
+}
+
+@layer layout {
+    body {
+        padding: 1rem;
+    }
+
+    header {
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        margin: 1rem 0 0.5rem;
+    }
+
+    p.intro {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    main {
+        margin: 0 auto;
+        max-width: 900px;
+    }
+
+    /* Buttons + Icon Styling */
+    .top-buttons,
+    .bottom-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    button {
+
+        border: 1px solid transparent;
+        /* ensures consistent button size */
+        padding: 0.5rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        svg {
+            width: 1em;
+            height: 1em;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            border: 1px solid #ff397d;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    /* The flipping board for 36 chars, inline in one row */
+    .board-container {
+        margin: 2rem auto;
+        display: inline-block;
+        padding: 1rem;
+        border: 1px solid #444;
+    }
+
+    .board {
+        display: inline-block;
+    }
+
+
+    .flip {
+        display: inline-block;
+        position: relative;
+        width: 20px;
+        height: 35px;
+        margin-right: 5px;
+        overflow: hidden;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            li {
+                display: inline-block;
+                width: 20px;
+                height: 35px;
+            }
+        }
+    }
+
+    .final-char {
+        position: absolute;
+        line-height: 35px;
+        display: inline-block;
+    }
+
+    .faq {
+        margin: 2rem auto 3rem;
+        max-width: 700px;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        details {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        p {
+            margin-top: 0.5rem;
+        }
+    }
+
+}
+
+
+body {
+    background: #222;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+}
+
+
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+p.intro {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+
+
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    background: #ff0062;
+    color: #fff;
+    /* ensures consistent button size */
+    border-radius: 4px;
+    transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
+
+    svg {
+        fill: currentColor;
+    }
+
+    &:hover {
+        background: #ff397d;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
+/* The flipping board for 36 chars, inline in one row */
+.board-container {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background: #1a1a1a;
+}
+
+.board {
+    white-space: nowrap;
+}
+
+.flip {
+    vertical-align: top;
+    position: relative;
+    background: #111;
+    overflow: hidden;
+    border-radius: 4px;
+
+
+
+    ul {
+        transition: top 0.1s linear;
+        pointer-events: none;
+        -webkit-user-select: none;
+        user-select: none;
+
+        li {
+            display: inline-block;
+            line-height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: gold;
+            font-family: monospace;
+        }
+    }
+}
+
+
+.final-char {
+    line-height: 35px;
+    font-size: 18px;
+    font-family: monospace;
+    color: #fff;
+    text-align: center;
+    pointer-events: auto;
+    -webkit-user-select: text;
+    user-select: text;
+    white-space: nowrap;
+}
+
+
+.faq {
+    text-align: left;
+
+    h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    details {
+        background: #333;
+        border-radius: 4px;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    summary {
+        font-weight: 500;
+        color: #fff;
+        outline: none;
+    }
+
+    p {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+}
+
+/* Example ad placeholders */
+.ad-placeholder {
+    width: 100%;
+    background: #555;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    max-width: 728px;
+    /* typical large banner width */
+    margin-left: auto;
+    margin-right: auto;
+}
