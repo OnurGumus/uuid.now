@@ -58,25 +58,26 @@
      align-items: center;
      gap: 0.4rem;
      transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
+
+     svg {
+         width: 1em;
+         height: 1em;
+         fill: currentColor;
+     }
+
+     &:hover {
+         background: #ff397d;
+         transform: translateY(-2px);
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+         border: 1px solid #ff397d;
+     }
+
+     &:active {
+         transform: translateY(0);
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+     }
  }
 
- button svg {
-     width: 1em;
-     height: 1em;
-     fill: currentColor;
- }
-
- button:hover {
-     background: #ff397d;
-     transform: translateY(-2px);
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-     border: 1px solid #ff397d;
- }
-
- button:active {
-     transform: translateY(0);
-     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
- }
 
  /* The flipping board for 36 chars, inline in one row */
  .board-container {
@@ -104,32 +105,33 @@
      background: #111;
      overflow: hidden;
      border-radius: 4px;
+
+     &:last-child {
+         margin-right: 0;
+     }
+
+     ul {
+         position: absolute;
+         top: 0;
+         left: 0;
+         transition: top 0.1s linear;
+         pointer-events: none;
+         -webkit-user-select: none;
+         user-select: none;
+
+         li {
+             display: inline-block;
+             width: 20px;
+             height: 35px;
+             line-height: 35px;
+             font-size: 18px;
+             text-align: center;
+             color: gold;
+             font-family: monospace;
+         }
+     }
  }
 
- .flip:last-child {
-     margin-right: 0;
- }
-
- .flip ul {
-     position: absolute;
-     top: 0;
-     left: 0;
-     transition: top 0.1s linear;
-     pointer-events: none;
-     -webkit-user-select: none;
-     user-select: none;
- }
-
- .flip ul li {
-     display: inline-block;
-     width: 20px;
-     height: 35px;
-     line-height: 35px;
-     font-size: 18px;
-     text-align: center;
-     color: gold;
-     font-family: monospace;
- }
 
  .final-char {
      position: absolute;
@@ -158,33 +160,33 @@
      text-align: left;
      margin: 2rem auto 3rem;
      max-width: 700px;
- }
 
- .faq h2 {
-     margin-bottom: 1rem;
-     font-size: 1.3rem;
-     font-weight: 600;
- }
+     h2 {
+         margin-bottom: 1rem;
+         font-size: 1.3rem;
+         font-weight: 600;
+     }
 
- .faq details {
-     background: #333;
-     border-radius: 4px;
-     margin-bottom: 0.5rem;
-     padding: 0.5rem;
-     color: #ccc;
-     cursor: pointer;
- }
+     details {
+         background: #333;
+         border-radius: 4px;
+         margin-bottom: 0.5rem;
+         padding: 0.5rem;
+         color: #ccc;
+         cursor: pointer;
+     }
 
- .faq summary {
-     font-weight: 500;
-     color: #fff;
-     outline: none;
- }
+     summary {
+         font-weight: 500;
+         color: #fff;
+         outline: none;
+     }
 
- .faq p {
-     margin-top: 0.5rem;
-     font-size: 0.95rem;
-     line-height: 1.4;
+     p {
+         margin-top: 0.5rem;
+         font-size: 0.95rem;
+         line-height: 1.4;
+     }
  }
 
  /* Example ad placeholders */
