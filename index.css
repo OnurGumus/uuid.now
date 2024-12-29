@@ -213,7 +213,7 @@
 
         &:hover {
             transform: translateY(-2px);
-            border: 1px solid #ff397d;
+            border-width: 1px;
         }
 
         &:active {
@@ -226,7 +226,8 @@
         margin: 2rem auto;
         display: inline-block;
         padding: 1rem;
-        border: 1px solid #444;
+        border-width: 1px;
+     
     }
 
     .board {
@@ -261,7 +262,6 @@
 
     .final-char {
         position: absolute;
-        line-height: 35px;
         display: inline-block;
     }
 
@@ -308,6 +308,8 @@
         }
 
         &:hover {
+            border-color:#ff397d;
+            border-style: solid;
             background: #ff397d;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -318,6 +320,8 @@
     }
 
     .board-container {
+        border-color: #444;
+        border-style: solid;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         background: #1a1a1a;
@@ -410,17 +414,14 @@
 
 
     .faq {
-        text-align: left;
+        text-align: start;
 
         h2 {
             font-size: 1.3rem;
             font-weight: 600;
         }
 
-        details {
-            background: #333;
-        }
-
+    
         summary {
             font-weight: 500;
         }
@@ -439,7 +440,6 @@
     }
 
     .flip {
-
         ul {
             transition: top 0.1s linear;
         }
