@@ -221,6 +221,10 @@
         padding: 1rem;
         border-width: 1px;
         border-style: solid;
+        @media (width < 1024px) {
+            zoom:0.7;
+        }
+
     }
 
     .board {
@@ -230,9 +234,12 @@
     .flip {
         display: inline-block;
         position: relative;
-        width: 20px;
+        width: 14px;
         height: 35px;
-        margin-right: 5px;
+        @media (min-width: 1024px) {
+            margin-right: 5px;
+            width: 20px;
+        }
         overflow: hidden;
 
         &:last-child {
