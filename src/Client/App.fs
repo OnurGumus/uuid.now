@@ -72,7 +72,7 @@ let buildFlip () =
     setData flip "top" "0"
 
     let ul = document.createElement ("ul")
-    ul?style?top <- "0px"
+    ul?style?insetBlockStart <- "0px"
 
     charList
     |> Array.iter (fun ch ->
@@ -89,7 +89,6 @@ let buildFlip () =
 
     flip
 
-/// Build all flips and append them to the board
 [ 0 .. FLIP_COUNT - 1 ]
 |> List.map (fun _ -> buildFlip ())
 |> List.iter (board.appendChild >> ignore)
@@ -112,14 +111,14 @@ let boardFlips () =
 let resetFlip (flipEl: HTMLElement) =
     setData flipEl "top" "0"
     let ul = flipEl.querySelector ("ul")
-    ul?style?top <- "0px"
+    ul?style?insetBlockStart <- "0px"
 
 let moveFlipDown (flipEl: HTMLElement) =
     let currentTop = getDataInt 0 flipEl "top"
     let newTop = currentTop - 35
     setData flipEl "top" (string newTop)
     let ul = flipEl.querySelector ("ul")
-    ul?style?top <- sprintf "%dpx" newTop
+    ul?style?insetBlockStart <- sprintf "%dpx" newTop
 
 //------------------------------------------
 // Switching Characters
