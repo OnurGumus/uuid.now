@@ -39,13 +39,6 @@
 
     <main>
 
-        <!-- Example Ad Placement (commented out) -->
-        <!--
-  <div class="ad-placeholder">
-    <p>Your Ad Here: 728x90, 468x60, or other ad sizes</p>
-  </div>
-  -->
-
         <div class="top-buttons">
             <button id="resetBtn">
                 <!-- Simple refresh icon (Bootstrap) -->
@@ -92,42 +85,35 @@
             </button>
         </div>
 
-        <!-- Example Ad Placement (commented out) -->
-        <!--
-  <div class="ad-placeholder">
-    <p>Another Ad Spot: 300x250, 336x280, etc.</p>
-  </div>
-  -->
-
-        <!-- FAQ section for extra SEO-friendly content -->
         <section class="faq">
+  
             <h2>Frequently Asked Questions</h2>
 
-            <details>
+            <details name="accordion">
                 <summary>What is a GUID or UUID?</summary>
                 <p>A GUID (Globally Unique Identifier) or UUID (Universally Unique Identifier) is a 128-bit number used
                     to uniquely identify information in computer systems.</p>
             </details>
 
-            <details>
+            <details name="accordion">
                 <summary>Why do I need Zero GUID?</summary>
                 <p>A Zero GUID refers to a GUID where all fields are zeroed out. It’s sometimes used for default
                     placeholder values or resetting a stored GUID to a blank state.</p>
             </details>
 
-            <details>
+            <details name="accordion">
                 <summary>How does Version 4 (v4) random GUID work?</summary>
                 <p>A v4 GUID is generated with random numbers. It provides a very high chance of uniqueness, making
                     collisions extremely unlikely.</p>
             </details>
 
-            <details>
+            <details name="accordion">
                 <summary>When should I use a Time-Based GUID?</summary>
                 <p>A Time-Based GUID can embed timestamp data. This makes them potentially sortable or trackable by
                     creation time, which is handy for indexing or chronological ordering.</p>
             </details>
 
-            <details>
+            <details name="accordion">
                 <summary>How do I copy a generated GUID to the clipboard?</summary>
                 <p>Simply click the “Copy” button below the GUID display. This will copy the entire 36-character string
                     (with dashes) to your clipboard.</p>
@@ -136,7 +122,10 @@
     </main>
 
     <footer>
-        <small>&copy; <span id="year">2025</span> uuid.now. All Rights Reserved.</small>
+        <small><a href="">Source</a></small><br>
+        <small>&copy; <span id="year">2025</span> uuid.now. All Rights Reserved.</small><br>
+        <small>Made by <a href="https://onur.works">onur.works</a></small>
+
     </footer>
     <script type=module src="build/App.js"></script>
 </body>
