@@ -5,13 +5,12 @@ open Browser
 open Browser.Types
 open Fable.Core.JsInterop
 open System
-open System.Globalization
 
 //------------------------------------------
 // Active Patterns and Helpers
 //------------------------------------------
 let (|ParseInt|_|) (s: string) =
-    match Int32.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture) with
+    match Int32.TryParse(s) with
     | true, v -> Some v
     | _ -> None
 
@@ -229,3 +228,4 @@ copyBtn.addEventListener (
 // Initialize the Board on DOMContentLoaded
 //------------------------------------------
 document.addEventListener ("DOMContentLoaded", fun _ -> switchToGuid "00000000-0000-0000-0000-000000000000")
+Client.SlideUpElement.register()

@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="WebComponent.fs" />
+    <Compile Include="SlideUpElement.fs" />
     <Compile Include="App.fs" />
     <Content Include="paket.references" />
   </ItemGroup>
