@@ -9,8 +9,11 @@
     <meta name="keywords"
         content="GUID generator, UUID generator, zero GUID, version 4 UUID, time-based UUID, free, online tool">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css?v=291220240834">
-    <script src="index.js?v=291220240834" defer></script>
+    <link rel="stylesheet" href="/index.css?v=1.0">
+    <script src="/index.js?v=1.0" type="module"></script>
+    <script src="/custom-animated-text.js?v=1.0" type="module"></script>
+    <script src="/slide-up-element.js?v=1.0" type="module"></script>
+
 
 </head>
 
@@ -20,11 +23,18 @@
         <a class="github-link" href="">
             <img  src="github-mark.png" alt="Github Logo" />
         </a>
-        <h1>Free GUID / UUID Generator</h1>
+        <h1>
+            <custom-animated-text rotation>
+                 UUID Generator
+            </custom-animated-text>
+        </h1>
+        <slide-up-element>
         <p class="intro">Easily generate <strong>Zero GUID</strong>, <strong>Version 4 Random GUID</strong>, or
             <strong>Time-Based GUID</strong> in one click.
             Perfect for developers, QA testers, or anyone who needs unique identifiers without hassle.
+
         </p>
+    </slide-up-element>
     </header>
 
     <main>
@@ -128,7 +138,7 @@
     <footer>
         <small>&copy; <span id="year">2025</span> uuid.now. All Rights Reserved.</small>
     </footer>
-
+    <script type=module src="build/App.js"></script>
 </body>
 
 </html>

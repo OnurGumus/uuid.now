@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF9A781C-05E1-43DD-A8B8-2095E6AE3673}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Client", "src\Client\Client.fsproj", "{F7ECC4C5-18E0-481D-B997-23904E273945}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7ECC4C5-18E0-481D-B997-23904E273945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7ECC4C5-18E0-481D-B997-23904E273945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7ECC4C5-18E0-481D-B997-23904E273945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7ECC4C5-18E0-481D-B997-23904E273945}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7ECC4C5-18E0-481D-B997-23904E273945} = {BF9A781C-05E1-43DD-A8B8-2095E6AE3673}
+	EndGlobalSection
+EndGlobal
