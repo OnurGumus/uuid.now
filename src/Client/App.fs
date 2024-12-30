@@ -228,4 +228,5 @@ copyBtn.addEventListener (
 // Initialize the Board on DOMContentLoaded
 //------------------------------------------
 document.addEventListener ("DOMContentLoaded", fun _ -> switchToGuid "00000000-0000-0000-0000-000000000000")
-Client.SlideUpElement.register()
+SlideUpElement.register()
+CustomAnimatedText.register()

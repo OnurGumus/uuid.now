@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="WebComponent.fs" />
     <Compile Include="SlideUpElement.fs" />
+    <Compile Include="CustomAnimatedText.fs" />
     <Compile Include="App.fs" />
     <Content Include="paket.references" />
   </ItemGroup>
