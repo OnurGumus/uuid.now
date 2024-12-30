@@ -6,6 +6,10 @@
         box-sizing: border-box;
     }
 
+    :root {
+        interpolate-size: allow-keywords;
+    }
+
     :root:has(:modal) {
         overflow: clip;
     }
@@ -167,21 +171,21 @@
     }
 
     header {
-        margin-bottom: 1rem;
+        margin-block-end: 1rem;
     }
 
     h1 {
-        margin:4rem;
+        margin: 4rem;
     }
 
     p.intro {
-        max-width: 600px;
+        max-inline-size: 600px;
         margin: 0 auto 2rem;
     }
 
     main {
         margin: 0 auto;
-        max-width: 900px;
+        max-inline-size: 900px;
     }
 
     .top-buttons,
@@ -200,8 +204,8 @@
         gap: 0.4rem;
 
         svg {
-            width: 1em;
-            height: 1em;
+            inline-size: 1em;
+            block-size: 1em;
         }
 
         &:hover {
@@ -221,8 +225,9 @@
         padding: 1rem;
         border-width: 1px;
         border-style: solid;
+
         @media (width < 1024px) {
-            zoom:0.7;
+            zoom: 0.7;
         }
 
     }
@@ -234,27 +239,29 @@
     .flip {
         display: inline-block;
         position: relative;
-        width: 14px;
-        height: 35px;
+        inline-size: 14px;
+        block-size: 35px;
+
         @media (min-width: 1024px) {
-            margin-right: 5px;
-            width: 20px;
+            margin-inline-end: 5px;
+            inline-size: 20px;
         }
+
         overflow: hidden;
 
         &:last-child {
-            margin-right: 0;
+            margin-inline-end: 0;
         }
 
         ul {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset-block-start: 0;
+            inset-inline-start: 0;
 
             li {
                 display: inline-block;
-                width: 20px;
-                height: 35px;
+                inline-size: 20px;
+                block-size: 35px;
             }
         }
     }
@@ -262,10 +269,10 @@
 
     .final-char {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: 100%;
+        block-size: 100%;
         display: inline-block;
     }
 
@@ -277,7 +284,7 @@
 
     .faq {
         margin: 2rem auto 3rem;
-        max-width: 700px;
+        max-inline-size: 700px;
 
         h2 {
             margin-bottom: 1rem;
@@ -289,17 +296,17 @@
         }
 
         p {
-            margin-top: 0.5rem;
-            font-size: 0.95rem;
-            line-height: 1.4;
+            margin-block-start: 0.5rem;
         }
     }
-    .github-link{
-        position:absolute;
-        top:1rem;
-        right:1rem;
+
+    .github-link {
+        position: absolute;
+        inset-block-start: 1rem;
+        inset-inline-end: 1rem;
         background-color: white;
-        img{
+
+        img {
             inline-size: 50px;
         }
     }
@@ -379,7 +386,8 @@
             outline: none;
         }
     }
-    .github-link{
+
+    .github-link {
         background-color: white;
     }
 }
@@ -488,4 +496,3 @@
     margin-left: auto;
     margin-right: auto;
 }
-
