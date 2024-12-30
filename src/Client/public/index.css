@@ -310,6 +310,7 @@
             inline-size: 50px;
         }
     }
+
     details {
         block-size: 2.5rem;
 
@@ -319,7 +320,6 @@
         }
     }
 }
-
 
 
 @layer appearance {
@@ -488,8 +488,9 @@
             transition: top 0.1s linear;
         }
     }
+
     @supports (interpolate-size: allow-keywords) {
-                   
+
         details {
             transition: block-size 0.5s ease;
         }
