@@ -50,10 +50,14 @@ A live version is available at https://uuid.now or https://guid.now.
    ```
 5. **Start the development server**  
    ```bash
+   npm i
+   ```
+6. **Start the development server**  
+   ```bash
    npm run start
    ```
    This opens a local development server. Any changes you make will hot-reload in your browser.
-6. **Build for production**  
+7. **Build for production**  
    ```bash
    npm run build
    ```
