@@ -48,7 +48,7 @@ A live version is available at https://uuid.now or https://guid.now.
    ```bash
    cd src/Client
    ```
-5. **Start the development server**  
+5. **Install NPM Deps**  
    ```bash
    npm i
    ```
