@@ -177,7 +177,7 @@ let getRandomV4Guid () =
 let getTimeBasedGuid () =
     let timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() |> int |> sprintf "%08x"
 
-    let randomBytes = window?crypto?getRandomValues (JS.Uint8Array.Create(12))
+    let randomBytes = window?crypto?getRandomValues (JS.Constructors.Uint8Array.Create(12))
 
     let rndHex =
         randomBytes
