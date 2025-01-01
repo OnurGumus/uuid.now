@@ -30,38 +30,20 @@ A live version is available at https://uuid.now or https://guid.now.
 - **.NET SDK 9**  
 - **Node.js v18** or higher  
 
-## Build Steps
+## Building and Running
 
-1. **Restore .NET tools**  
-   ```bash
-   dotnet tool restore
-   ```
-2. **Restore packages with Paket**  
-   ```bash
-   dotnet paket restore
-   ```
-3. **Build the .NET project**  
-   ```bash
-   dotnet build
-   ```
-4. **Navigate to the client folder**  
-   ```bash
-   cd src/Client
-   ```
-5. **Install NPM Deps**  
-   ```bash
-   npm i
-   ```
-6. **Start the development server**  
-   ```bash
-   npm run start
-   ```
-   This opens a local development server. Any changes you make will hot-reload in your browser.
-7. **Build for production**  
-   ```bash
-   npm run build
-   ```
-   Bundles and optimizes the app for production deployment.
+- To run it 
+```bash
+dotnet fsi start_dev.fsx   
+```
+Then visit http://localhost:5173
+
+- To build for prod
+
+```bash
+dotnet fsi build_production.fsx
+```
+And grap the output from `dist` folder
 
 ## Contributing
 
