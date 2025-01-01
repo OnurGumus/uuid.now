@@ -14,17 +14,9 @@ type SlideUpElement() =
     // Create a shadow root in the constructor
     let shadow = base.attachShadow {| mode = "open" |}
 
-    // Create container
-    let container = Browser.Dom.document.createElement("div")
-    do container.classList.add("clip-container")
-
-    // Create slot
-    let slot = Browser.Dom.document.createElement("slot")
-    do container.appendChild(slot) |> ignore
-
-    // Create style
-    let style = Browser.Dom.document.createElement("style")
-    do style.textContent <- """
+    // Create and adopt stylesheet
+    let sheet = createCSSStyleSheet()
+    do sheet.replaceSync("""
         .clip-container {
           overflow: clip;
           display: block;
@@ -37,12 +29,19 @@ type SlideUpElement() =
           transition: transform 1.3s cubic-bezier(0.55,-0.26, 0, 0.55),
                      opacity 1.3s cubic-bezier(0.55,-0.26, 0, 0.55);
         }
-    """
+    """)
+    do setAdoptedStyleSheets shadow [|sheet|]
 
-    // Append style + container to shadow root
-    do
-        shadow.appendChild(style) |> ignore
-        shadow.appendChild(container) |> ignore
+    // Create container
+    let container = Browser.Dom.document.createElement("div")
+    do container.classList.add("clip-container")
+
+    // Create slot
+    let slot = Browser.Dom.document.createElement("slot")
+    do container.appendChild(slot) |> ignore
+
+    // Append container to shadow root
+    do shadow.appendChild(container) |> ignore
 
     override this.connectedCallback() =
         // In JS we do: this.shadowRoot.querySelector('slot').assignedElements()[0]

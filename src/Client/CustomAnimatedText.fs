@@ -121,9 +121,9 @@ type CustomAnimatedText() =
             )
             ) |> ignore)
 
-        // Create style
-        let styleElem = document.createElement("style")
-        styleElem.textContent <- """
+        // Create and configure stylesheet
+        let sheet = createCSSStyleSheet()
+        sheet.replaceSync("""
             .middle-text-container {
                 overflow: clip;
                 display: flex;
@@ -186,14 +186,14 @@ type CustomAnimatedText() =
             slot {
                 display: none;
             }
-        """
+        """)
 
-        // Append style + container to shadow DOM
-        shadow.appendChild(styleElem) |> ignore
+        setAdoptedStyleSheets shadow [|sheet|]
+
         shadow.appendChild(container) |> ignore
 
 // Register the CustomAnimatedText component
 attachStaticGetter<CustomAnimatedText, _> "observedAttributes" (fun () -> [| "rotation" |])
 customElements.define("custom-animated-text", jsConstructor<CustomAnimatedText>)
 
-let register () = ()  
+let register () = ()

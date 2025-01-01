@@ -31,3 +31,15 @@ let inline attachStatic<'T> (name: string) (f: obj) : unit = jsConstructor<'T>?n
 let inline attachStaticGetter<'T, 'V> (name: string) (f: unit -> 'V) : unit =
     JS.Constructors.Object.defineProperty (jsConstructor<'T>, name, !!{| get = f |})
     |> ignore
+
+[<AllowNullLiteral>]
+type CSSStyleSheet =
+    abstract replaceSync: string -> unit
+    abstract cssRules: obj array
+
+[<Emit("new CSSStyleSheet()")>]
+let createCSSStyleSheet(): CSSStyleSheet = jsNative
+
+[<Emit("$0.adoptedStyleSheets = $1")>]
+let setAdoptedStyleSheets (element: obj) (sheets: CSSStyleSheet[]): unit = jsNative
+
