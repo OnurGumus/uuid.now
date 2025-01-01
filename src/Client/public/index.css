@@ -78,9 +78,9 @@
         navigation: auto;
     }
 
-    *:not(:defined) {
+    /* *:not(:defined) {
         visibility: hidden;
-    }
+    } */
 
 
     /* Prevent font size inflation */

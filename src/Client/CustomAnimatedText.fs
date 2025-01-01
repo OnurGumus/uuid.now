@@ -194,6 +194,6 @@ type CustomAnimatedText() =
 
 // Register the CustomAnimatedText component
 attachStaticGetter<CustomAnimatedText, _> "observedAttributes" (fun () -> [| "rotation" |])
-customElements.define("custom-animated-text", jsConstructor<CustomAnimatedText>)
+customElements.define("custom-animated-text", jsConstructor<CustomAnimatedText>, None)
 
 let register () = ()

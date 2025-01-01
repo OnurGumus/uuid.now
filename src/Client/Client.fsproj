@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="WebComponent.fs" />
+    <Compile Include="FancyButton.fs" />
     <Compile Include="SlideUpElement.fs" />
     <Compile Include="CustomAnimatedText.fs" />
     <Compile Include="App.fs" />
