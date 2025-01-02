@@ -221,7 +221,6 @@ copyBtn.addEventListener (
                 ""
 
         window?navigator?clipboard?writeText (finalStr) |> ignore
-        window.alert ("Copied:\n" + finalStr)
 )
 
 //------------------------------------------
