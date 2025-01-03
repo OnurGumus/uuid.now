@@ -13,20 +13,25 @@
     <!-- Favicon & Apple Touch Icon -->
     <link rel="icon" href="/ico32x32.png">
     <link rel="apple-touch-icon" href="/ico180x180.png"><!-- 180×180 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
-
+ 
 </head>
 
 <body>
-
     <header>
-        <a class="github-link" href="https://github.com/OnurGumus/uuid.now">
-            <img src="github-mark.png" alt="Github Logo" />
-        </a>
+
+        <div class="light-dark">
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <div class="ball"></div>
+            </label>
+        </div>
         <h1>
-            <custom-animated-text rotation>
-                UUID.NOW
-            </custom-animated-text>
+            UUID.NOW
         </h1>
         <slide-up-element>
             <p class="intro">Easily generate <strong>Zero UUID</strong>, <strong>Version 4 Random UUID</strong>, or
@@ -38,7 +43,7 @@
     </header>
 
     <main>
-        
+
         <div class="top-buttons">
             <button id="resetBtn" is="fancy-button">
                 <!-- Simple refresh icon (Bootstrap) -->
@@ -87,22 +92,26 @@
 
         <section class="faq">
             <h2>Frequently Asked Questions</h2>
-        
+
             <details name="accordion">
                 <summary>What makes uuid.now special?</summary>
-                <p><strong>uuid.now</strong> is easy to remember and lets you generate UUID quickly on a single, no-frills page. You get the UUID you need without any extra steps.</p>
+                <p><strong>uuid.now</strong> is easy to remember and lets you generate UUID quickly on a single,
+                    no-frills page. You get the UUID you need without any extra steps.</p>
             </details>
-        
+
             <details name="accordion">
                 <summary>How does the v4 UUID generator work?</summary>
-                <p>The Version 4 UUID generator on <strong>uuid.now</strong> uses your browser’s Crypto API to create secure and random identifiers. Each UUID is unique and reliable, boosting the security of your applications.</p>
+                <p>The Version 4 UUID generator on <strong>uuid.now</strong> uses your browser’s Crypto API to create
+                    secure and random identifiers. Each UUID is unique and reliable, boosting the security of your
+                    applications.</p>
             </details>
-        
+
             <details name="accordion">
                 <summary>When should I use Time-Based UUID?</summary>
-                <p>Time-Based UUID include timestamp data, making them perfect for database indexing. They allow faster searching and sorting of records by creation time, improving overall database performance.</p>
+                <p>Time-Based UUID include timestamp data, making them perfect for database indexing. They allow faster
+                    searching and sorting of records by creation time, improving overall database performance.</p>
             </details>
-        
+
             <details name="accordion">
                 <summary>How do I copy a UUID?</summary>
                 <p>Copying a UUID on <strong>uuid.now</strong> is simple:</p>
@@ -113,8 +122,8 @@
                 <p>Either way, it goes straight to your clipboard—ready to use in your projects.</p>
             </details>
         </section>
-        
-        
+
+
     </main>
 
     <footer>
@@ -124,6 +133,25 @@
 
     </footer>
     <script type=module src="build/App.js"></script>
+    <script>
+
+        document.documentElement.classList.toggle('light-mode');
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('light-mode');
+        }
+
+        const checkbox = document.getElementById('checkbox');
+
+        checkbox.addEventListener('change', () => {
+            // change background color
+            if (document.startViewTransition)
+                document.startViewTransition(() => toggleDarkMode())
+            else
+                toggleDarkMode()
+        });
+
+    </script>
 </body>
 
 </html>

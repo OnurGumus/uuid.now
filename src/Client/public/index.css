@@ -300,11 +300,54 @@
         }
     }
 
-    .github-link {
+    .light-dark {
         position: absolute;
         inset-block-start: 1rem;
-        inset-inline-end: 1rem;
-        background-color: white;
+        inset-inline-end: 3rem;
+        /* background-color: white; */
+        zoom: 0.8;
+
+        .checkbox {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .checkbox:checked+.label .ball {
+            transform: translateX(24px);
+        }
+
+        .label {
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+            border-radius: 50px;
+            block-size: 26px;
+            inline-size: 50px;
+            position: relative;
+            transform: scale(2);
+        }
+
+        .ball {
+            inset-block-start: 2px;
+            inset-inline-start: 2px;
+            inline-size: 22px;
+            block-size: 22px;
+            background-color: white;
+            position: absolute;
+            border-radius: 50%;
+            transition: transform 0.3s linear;
+        }
+
+        .fa-moon {
+            color: yellow;
+        }
+
+        .fa-sun {
+            color: yellow;
+        }
+
 
         img {
             inline-size: 50px;
@@ -323,19 +366,64 @@
 
 
 @layer appearance {
+    :root {
+        color-scheme: light;
+        --color-background: light-dark(oklch(0.75 0 0), oklch(0.25 0 0));
+        --color-text: light-dark(oklch(0 0 0), oklch(1 0 0));
+        --color-text-secondary: light-dark(oklch(0.15 0 0), oklch(0.85 0 0));
+        --color-button: light-dark(oklch(48% 0.25 11.71), oklch(0.64 0.25 11.71));
+        --color-button-hover: light-dark(oklch(59% 0.23 6.34), oklch(0.67 0.23 6.34));
+        --color-board: light-dark(oklch(0.78 0 0), oklch(0.2 0 0));
+        --color-board-border: light-dark(oklch(0.61 0 0), oklch(0.39 0 0));
+        --color-flip: light-dark(oklch(0.82 0 0), oklch(0.18 0 0));
+        --color-faq: light-dark(oklch(0.68 0 0), oklch(0.32 0 0));
+    }
+
+    .dark-mode {
+        color-scheme: dark;
+    }
+
+    .light-mode {
+        color-scheme: light;
+    }
+
+    .light-dark {
+        .label {
+            background-color: #111;
+        }
+
+        .ball {
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .fa-moon {
+            color: yellow;
+        }
+
+        .fa-sun {
+            color: yellow;
+        }
+
+        img {
+            inline-size: 50px;
+        }
+    }
+
+
     body {
-        background: #222;
-        color: #fff;
+        background: var(--color-background);
+        color: var(--color-text);
     }
 
     p.intro {
-        color: #ccc;
+        color: var(--color-text-secondary);
     }
 
     button {
         cursor: pointer;
-        background: #ff0062;
-        color: #fff;
+        background: var(--color-button);
+        color: var(--color-text);
         border-radius: 4px;
 
         svg {
@@ -343,8 +431,8 @@
         }
 
         &:hover {
-            background: #ff397d;
-            border-color: #ff397d;
+            background: var(--color-button-hover);
+            border-color: var(--color-button-hover);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
@@ -356,12 +444,12 @@
     .board-container {
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        background: #1a1a1a;
-        border-color: #444;
+        background: var(--color-board);
+        border-color: var(--color-board-border);
     }
 
     .flip {
-        background: #111;
+        background: var(--color-flip);
         border-radius: 4px;
 
         ul {
@@ -371,33 +459,29 @@
                 line-height: 35px;
                 font-size: 18px;
                 text-align: center;
-                color: gold;
+                color: var(--color-flip-text);
                 font-family: monospace;
             }
         }
     }
 
     .final-char {
-        color: #fff;
+        color: var(--color-text);
         pointer-events: auto;
     }
 
     .faq {
         details {
-            background: #333;
+            background: var(--color-faq);
             border-radius: 4px;
-            color: #ccc;
+            color: var(--color-text-secondary);
             cursor: pointer;
         }
 
         summary {
-            color: #fff;
+            color: var(--color-text);
             outline: none;
         }
-    }
-
-    .github-link {
-        background-color: white;
     }
 }
 
@@ -478,6 +562,15 @@
 
 @layer animation {
 
+    @keyframes circle-in-top-right {
+        from {
+            clip-path: circle(0%);
+        }
+
+        to {
+            clip-path: circle(150% at top right);
+        }
+    }
 
     button {
         transition: background 0.3s ease, transform 0.2s ease, border 0.3s ease;
@@ -493,6 +586,22 @@
 
         details {
             transition: block-size 0.5s ease;
+        }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+
+        ::view-transition-old(root) {
+            animation: none;
+        }
+
+        ::view-transition-new(root) {
+            animation: 2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-top-right forwards;
+        }
+    }
+    .light-dark {
+        .ball {
+            transition: transform 0.3s linear;
         }
     }
 
