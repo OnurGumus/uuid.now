@@ -9,7 +9,7 @@
     <meta name="keywords"
         content="GUID generator, UUID generator, zero GUID, version 4 UUID, time-based UUID, free, online tool">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/index.css?v=301220242337">
+    <link rel="stylesheet" href="/index.css?v=030120252337">
     <!-- Favicon & Apple Touch Icon -->
     <link rel="icon" href="/ico32x32.png">
     <link rel="apple-touch-icon" href="/ico180x180.png"><!-- 180×180 -->
@@ -123,35 +123,14 @@
             </details>
         </section>
 
-
     </main>
 
     <footer>
         <small><a href="https://github.com/OnurGumus/uuid.now">Source</a></small><br>
         <small>&copy; <span id="year">2025</span> uuid.now. All Rights Reserved.</small><br>
         <small>Made by <a href="https://onur.works">onur.works</a></small>
-
     </footer>
     <script type=module src="build/App.js"></script>
-    <script>
-
-        document.documentElement.classList.toggle('light-mode');
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark-mode');
-            document.documentElement.classList.toggle('light-mode');
-        }
-
-        const checkbox = document.getElementById('checkbox');
-
-        checkbox.addEventListener('change', () => {
-            // change background color
-            if (document.startViewTransition)
-                document.startViewTransition(() => toggleDarkMode())
-            else
-                toggleDarkMode()
-        });
-
-    </script>
 </body>
 
 </html>

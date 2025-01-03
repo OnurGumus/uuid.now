@@ -226,7 +226,29 @@ copyBtn.addEventListener (
 //------------------------------------------
 // Initialize the Board on DOMContentLoaded
 //------------------------------------------
-document.addEventListener ("DOMContentLoaded", fun _ -> switchToGuid "00000000-0000-0000-0000-000000000000")
+document.addEventListener (
+    "DOMContentLoaded",
+    (fun _ ->
+        switchToGuid "00000000-0000-0000-0000-000000000000" |> ignore
+        document.documentElement.classList.toggle ("dark-mode") |> ignore
+
+        let toggleDarkMode () =
+            document.documentElement.classList.toggle ("dark-mode") |> ignore
+            document.documentElement.classList.toggle ("light-mode") |> ignore
+
+        let checkbox = document.getElementById ("checkbox")
+
+        checkbox.addEventListener (
+            "change",
+            fun _ ->
+                if document?startViewTransition then
+                    document?startViewTransition (fun _ -> toggleDarkMode ())
+                else
+                    toggleDarkMode ()
+        )
+    )
+)
+
 SlideUpElement.register ()
 CustomAnimatedText.register ()
 FancyButton.register ()
