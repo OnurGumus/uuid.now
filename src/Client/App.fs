@@ -15,6 +15,8 @@ let toggleDarkMode () =
     let classList = document.documentElement.classList
     classList.toggle ("dark-mode") |> ignore
     classList.toggle ("light-mode") |> ignore
+    let el = document.querySelector("custom-animated-text")
+    el?triggerSlotChanged() |> ignore
 
 let lightDarkButton = document.querySelector(".light-dark .checkbox")
 

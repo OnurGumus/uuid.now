@@ -16,6 +16,14 @@ type ShadowRoot() =
 [<Global; AbstractClass>]
 [<AllowNullLiteral>]
 type HTMLElement() =
+    member _.shadowRoot: ShadowRoot = jsNative
+    member _.clientWidth: int = jsNative
+    member _.clientHeight: int = jsNative
+    member _.offsetLeft: int = jsNative
+    member _.offsetTop: int = jsNative
+    member _.style = jsNative
+    member _.animate(keyframes: obj[], options: obj) = jsNative
+    member _.appendChild(node: Browser.Types.Node) : Browser.Types.Node = jsNative
     member _.attachShadow(init: obj) : ShadowRoot = jsNative
     // Web Components lifecycle methods:
     abstract connectedCallback: unit -> unit
@@ -29,13 +37,6 @@ type HTMLElement() =
 [<Global; AbstractClass>]
 type HTMLButtonElement() =
     inherit HTMLElement()
-    member _.clientWidth: int = jsNative
-    member _.clientHeight: int = jsNative
-    member _.offsetLeft: int = jsNative
-    member _.offsetTop: int = jsNative
-    member _.style = jsNative
-    member _.animate(keyframes: obj[], options: obj) = jsNative
-    member _.appendChild(node: Browser.Types.Node) : Browser.Types.Node = jsNative
 
 let inline attachStatic<'T> (name: string) (f: obj) : unit = jsConstructor<'T>?name <- f
 
@@ -53,3 +54,6 @@ let createCSSStyleSheet () : CSSStyleSheet = jsNative
 
 [<Emit("$0.adoptedStyleSheets = $1")>]
 let setAdoptedStyleSheets (element: obj) (sheets: CSSStyleSheet[]) : unit = jsNative
+
+let html x = x
+let css x = x

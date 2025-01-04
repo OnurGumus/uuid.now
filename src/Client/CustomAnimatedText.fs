@@ -4,122 +4,136 @@ open Fable.Core.JsInterop
 open Browser.Types
 open Browser.Dom
 open WebComponent
+open Fable.Core
 
+[<AttachMembers>]
 [<AllowNullLiteral>]
 type CustomAnimatedText() =
     inherit HTMLElement()
+    let mutable colorSchemeMediaQuery = None
+    let mutable savedInnerContainer = Unchecked.defaultof<Browser.Types.HTMLElement>
+    let mutable savedSlot = Unchecked.defaultof<Browser.Types.HTMLElement>
 
-    do
-        // Shadow root
-        let shadow = base.attachShadow {| mode = "open" |}
+    let slotChanged(self: Browser.Types.HTMLElement, innerContainer :Browser.Types.HTMLElement, slot:Browser.Types.HTMLElement) = 
+        let assignedNodes = unbox<obj array> (slot?assignedNodes())
+        // Clear any existing spans in innerContainer
+        innerContainer.innerHTML <- ""
 
-        // Create outer container
-        let container = document.createElement("div")
-        container.classList.add("middle-text-container")
+        // First pass: count total letters
+        let mutable totalLetters = 0
+        assignedNodes
+        |> Array.iter (fun node ->
+            let nodeType = unbox<int> node?nodeType
+            if nodeType = 1 || nodeType = 3 then // ELEMENT_NODE or TEXT_NODE
+                let textContent = (node?textContent : string).Trim()
+                if not (System.String.IsNullOrEmpty textContent) then
+                    totalLetters <- totalLetters + textContent.Length
+        )
 
-        // Create inner container for flex layout
-        let innerContainer = document.createElement("div")
-        innerContainer.classList.add("middle-text")
+        // Animation parameters
+        let totalDuration = 1.3
+        let minDuration = 1.3
+        let step = (totalDuration - minDuration) / float totalLetters
+        let initialOffset = 10
+        let mutable currentIndex = 0
 
-        container.appendChild(innerContainer) |> ignore
 
-        // Create a slot
-        let slot = document.createElement("slot")
-        container.appendChild(slot) |> ignore
-
-        // Listen to the slotchange event
-        slot.addEventListener("slotchange", fun _ ->
-            let assignedNodes = unbox<obj array> (slot?assignedNodes())
-            // Clear any existing spans in innerContainer
-            innerContainer.innerHTML <- ""
-
-            // First pass: count total letters
-            let mutable totalLetters = 0
+        // Defer to the next animation frame
+        window.requestAnimationFrame(fun _ ->
             assignedNodes
             |> Array.iter (fun node ->
                 let nodeType = unbox<int> node?nodeType
                 if nodeType = 1 || nodeType = 3 then // ELEMENT_NODE or TEXT_NODE
                     let textContent = (node?textContent : string).Trim()
                     if not (System.String.IsNullOrEmpty textContent) then
-                        totalLetters <- totalLetters + textContent.Length
-            )
+                        // Grab the computed styles (from node if element, or from parent if text)
+                        let styles =
+                            if nodeType = 1 then // ELEMENT_NODE
+                                window?getComputedStyle(node :?> Element)
+                            else
+                                window?getComputedStyle(unbox<Element> node?parentElement)
 
-            // Animation parameters
-            let totalDuration = 1.3
-            let minDuration = 1.3
-            let step = (totalDuration - minDuration) / float totalLetters
-            let initialOffset = 10
-            let mutable currentIndex = 0
+                        // Helper to copy certain style props from the computed style
+                        let applyStyles (el: HTMLElement) =
+                            [ 
+                            "color"
+                            "fontFamily"
+                            "fontSize"
+                            "fontWeight"
+                            "fontStyle"
+                            "letterSpacing"
+                            "lineHeight"
+                            "textShadow" ]
+                            |> List.iter (fun prop ->
+                                el?style?(prop) <- styles?(prop)
+                            )
 
+                        // Create a span per character
+                        for i in 0 .. textContent.Length - 1 do
+                            let ch = textContent.[i]
+                            let span = document.createElement("span")
+                            span.textContent <- if ch = ' ' then "\u00A0" else string ch
+                            applyStyles (span :?> HTMLElement)
 
-            // Defer to the next animation frame
-            window.requestAnimationFrame(fun _ ->
-                assignedNodes
-                |> Array.iter (fun node ->
-                    let nodeType = unbox<int> node?nodeType
-                    if nodeType = 1 || nodeType = 3 then // ELEMENT_NODE or TEXT_NODE
-                        let textContent = (node?textContent : string).Trim()
-                        if not (System.String.IsNullOrEmpty textContent) then
-                            // Grab the computed styles (from node if element, or from parent if text)
-                            let styles =
-                                if nodeType = 1 then // ELEMENT_NODE
-                                    window?getComputedStyle(node :?> Element)
-                                else
-                                    window?getComputedStyle(unbox<Element> node?parentElement)
+                            let delay = float currentIndex * step
+                            let duration = totalDuration - delay
 
-                            // Helper to copy certain style props from the computed style
-                            let applyStyles (el: HTMLElement) =
-                                [ "color"
-                                  "fontFamily"
-                                  "fontSize"
-                                  "fontWeight"
-                                  "fontStyle"
-                                  "letterSpacing"
-                                  "lineHeight"
-                                  "textShadow" ]
-                                |> List.iter (fun prop ->
-                                    el?style?(prop) <- styles?(prop)
-                                )
-
-                            // Create a span per character
-                            for i in 0 .. textContent.Length - 1 do
-                                let ch = textContent.[i]
-                                let span = document.createElement("span")
-                                span.textContent <- if ch = ' ' then "\u00A0" else string ch
-                                applyStyles (span :?> HTMLElement)
-
-                                let delay = float currentIndex * step
-                                let duration = totalDuration - delay
-
-                                // Decide if we have rotation
-                                let hasRotation = jsThis?hasAttribute("rotation")
-                                let className =
-                                    if hasRotation then
-                                        "with-rotation"
-                                    else
-                                        "no-rotation"
-                                
-                                span.classList.add(className)
-
-                                // Set CSS custom properties
-                                span?style?setProperty("--animation-delay", sprintf "%fs" delay)
-                                span?style?setProperty("--animation-duration", sprintf "%fs" duration)
-
+                            // Decide if we have rotation
+                            let hasRotation = self.hasAttribute("rotation")
+                            let className =
                                 if hasRotation then
-                                    span?style?setProperty("--initial-y", sprintf "%fpx" (float (initialOffset) * float (currentIndex + 4)))
+                                    "with-rotation"
+                                else
+                                    "no-rotation"
+                            
+                            span.classList.add(className)
 
-                                innerContainer.appendChild(span) |> ignore
-                                currentIndex <- currentIndex + 1
+                            // Set CSS custom properties
+                            span?style?setProperty("--animation-delay", sprintf "%fs" delay)
+                            span?style?setProperty("--animation-duration", sprintf "%fs" duration)
 
-                            // If it's not the last node, add an extra space
-                            let lastNode = assignedNodes.[assignedNodes.Length - 1]
-                            if not (System.Object.ReferenceEquals(node, lastNode)) then
-                                let space = document.createElement("span")
-                                space.textContent <- "\u00A0"
-                                applyStyles (space :?> HTMLElement)
-                                innerContainer.appendChild(space) |> ignore
-            )
-            ) |> ignore)
+                            if hasRotation then
+                                span?style?setProperty("--initial-y", sprintf "%fpx" (float (initialOffset) * float (currentIndex + 4)))
+
+                            innerContainer.appendChild(span) |> ignore
+                            currentIndex <- currentIndex + 1
+
+                        // If it's not the last node, add an extra space
+                        let lastNode = assignedNodes.[assignedNodes.Length - 1]
+                        if not (System.Object.ReferenceEquals(node, lastNode)) then
+                            let space = document.createElement("span")
+                            space.textContent <- "\u00A0"
+                            applyStyles (space :?> HTMLElement)
+                            innerContainer.appendChild(space) |> ignore
+        )
+        ) |> ignore
+    do
+        // Shadow root
+        let container = document.createElement("div")
+        let innerContainer = document.createElement("div")
+        let slot = document.createElement("slot")
+        
+        // Save references
+        savedInnerContainer <- innerContainer
+        savedSlot <- slot
+    
+        let shadow = base.attachShadow {| mode = "open" |}
+
+        // Create outer container
+
+        container.classList.add("middle-text-container")
+
+        // Create inner container for flex layout
+        innerContainer.classList.add("middle-text")
+
+        container.appendChild(innerContainer) |> ignore
+
+        // Create a slot
+        container.appendChild(slot) |> ignore
+
+        // Listen to the slotchange event
+        slot.addEventListener("slotchange", fun _ -> slotChanged(jsThis,innerContainer, slot)) |> ignore
+            
 
         // Create and configure stylesheet
         let sheet = createCSSStyleSheet()
@@ -191,6 +205,24 @@ type CustomAnimatedText() =
         setAdoptedStyleSheets shadow [|sheet|]
 
         shadow.appendChild(container) |> ignore
+
+    member this.triggerSlotChanged() =
+        slotChanged(jsThis, savedInnerContainer, savedSlot)
+
+    override this.connectedCallback() =
+        let mediaQuery = window?matchMedia("(prefers-color-scheme: dark)")
+        colorSchemeMediaQuery <- Some mediaQuery
+        let handler = fun _ -> printf "onur"; slotChanged(jsThis, savedInnerContainer, savedSlot)
+        mediaQuery?addEventListener("change", handler)
+
+    
+
+    override this.disconnectedCallback() =
+        match colorSchemeMediaQuery with
+        | Some mediaQuery ->
+            mediaQuery?removeEventListener("change", fun _ -> 
+                slotChanged(jsThis, savedInnerContainer, savedSlot))
+        | None -> ()
 
 // Register the CustomAnimatedText component
 attachStaticGetter<CustomAnimatedText, _> "observedAttributes" (fun () -> [| "rotation" |])
