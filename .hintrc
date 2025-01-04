@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ]
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not ios_saf <= 17.4",
+    "not safari <= 17.4",
+    "not and_ff <= 125",
+    "not chrome <= 109",
+    "not firefox <= 125",
+    "not samsung <= 24"
+  ]
+}
