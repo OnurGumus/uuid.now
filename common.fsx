@@ -7,14 +7,24 @@ let runCommand (command: string) (args: string) =
     startInfo.RedirectStandardOutput <- true
     startInfo.RedirectStandardError <- true
 
-    use proc = Process.Start(startInfo)
+    use proc = new Process()
+    proc.StartInfo <- startInfo
+    
+    proc.OutputDataReceived.Add(fun args -> 
+        if not (isNull args.Data) then 
+            printfn "%s" args.Data)
+            
+    proc.ErrorDataReceived.Add(fun args -> 
+        if not (isNull args.Data) then 
+            eprintfn "%s" args.Data)
+
+    proc.Start() |> ignore
+    proc.BeginOutputReadLine()
+    proc.BeginErrorReadLine()
     proc.WaitForExit()
 
     if proc.ExitCode <> 0 then
-        let error = proc.StandardError.ReadToEnd()
-        failwithf "Command '%s %s' failed with exit code %d. Error: %s" command args proc.ExitCode error
-    else
-        proc.StandardOutput.ReadToEnd() |> printfn "%s"
+        failwithf "Command '%s %s' failed with exit code %d" command args proc.ExitCode
 
 // Shared tasks
 let restoreDotnetTools () =
