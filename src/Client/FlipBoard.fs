@@ -176,23 +176,38 @@ let getRandomV4Guid () =
 // Generate a time-based GUID
 //------------------------------------------
 let getTimeBasedGuid () =
-    let timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() |> int |> sprintf "%08x"
+    // Get Unix timestamp in milliseconds
+    let timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+    
+    // Convert timestamp to bytes (48 bits = 6 bytes)
+    let timestampHex = 
+        let ts = timestamp
+        sprintf "%012x" ts
 
+    // Get 10 random bytes (we only need 10 since 6 are from timestamp)
     let randomBytes =
-        window?crypto?getRandomValues (JS.Constructors.Uint8Array.Create(12))
-
-    let rndHex =
-        randomBytes
+        window?crypto?getRandomValues (JS.Constructors.Uint8Array.Create(10))
         |> Seq.cast<byte>
         |> Seq.map (fun b -> sprintf "%02x" b)
         |> String.concat ""
-
-    let part1 = rndHex.Substring(0, 4)
-    let part2 = rndHex.Substring(4, 4)
-    let part3 = rndHex.Substring(8, 4)
-    let part4 = rndHex.Substring(12)
-
-    sprintf "%s-%s-%s-%s-%s" timestamp part1 part2 part3 part4
+    
+    // Format: time_high-time_mid-ver_time_low-var_rand-rand
+    let timeLow = timestampHex.Substring(8, 4)  // Last 16 bits of timestamp
+    let timeMid = timestampHex.Substring(4, 4)  // Middle 16 bits
+    let timeHigh = timestampHex.Substring(0, 4) // First 16 bits
+    
+    // Version 7 and variant bits
+    let verTimeLow = "7" + timeLow.[1..3]      // Set version to 7
+    let varRand = 
+        let firstNibble = randomBytes.[0]
+        let secondNibble = 
+            match int ("0x" + randomBytes.[1].ToString()) &&& 0x0F with
+            | n -> (n ||| 0x8) &&& 0xBF // Set variant bits (10)
+        sprintf "%c%X" firstNibble secondNibble + randomBytes.Substring(2, 2)
+    
+    let remaining = randomBytes.Substring(4)
+    
+    sprintf "%s-%s-%s-%s-%s" timeHigh timeMid verTimeLow varRand remaining
     |> fun s -> s.ToUpperInvariant()
 
 //------------------------------------------

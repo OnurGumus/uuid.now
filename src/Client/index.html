@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Free GUID / UUID Generator (Zero, V4, Time-Based)</title>
+    <title>UUID Generator Online | Free GUID Generator (Empty, V4, V7) | uuid.now</title>
     <meta name="description"
-        content="Generate Zero UUID, emtpy UUID, Version 4 Random UUID, and Time-Based UUID quickly. Perfect for developers, testers, or anyone who needs unique IDs.">
+        content="Free online UUID/GUID generator tool. Create Empty UUID, Version 4 Random UUID, and V7 Time-Based UUID instantly. Secure, fast, and developer-friendly. Perfect for database keys, testing, and distributed systems.">
     <meta name="keywords"
-        content="GUID generator, UUID generator, zero GUID, version 4 UUID, time-based UUID, free, online tool">
+        content="UUID generator, GUID generator, empty UUID, UUID v4, UUID v7, time-based UUID, online UUID tool, UUID generator online, generate UUID, create GUID, null UUID, UUID for testing, database UUID">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/index.css?v=030120252337">
     <!-- Favicon & Apple Touch Icon -->
@@ -16,7 +16,46 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
- 
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="UUID Generator Online | Free GUID Generator (Empty, V4, V7)">
+    <meta property="og:description" content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://uuid.now">
+    <meta property="og:image" content="https://uuid.now/social-preview.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UUID Generator Online | Free GUID Generator">
+    <meta name="twitter:description" content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
+    <meta name="twitter:image" content="https://uuid.now/social-preview.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://uuid.now">
+
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "UUID.NOW Generator",
+        "url": "https://uuid.now",
+        "description": "Free online UUID/GUID generator tool supporting Empty UUID, Version 4 Random UUID, and V7 Time-Based UUID generation.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "features": [
+            "Empty UUID Generation",
+            "Version 4 Random UUID",
+            "V7 Time-Based UUID",
+            "One-click Copy",
+            "Dark Mode Support"
+        ]
+    }
+    </script>
 </head>
 
 <body>
@@ -34,12 +73,13 @@
             UUID.NOW
         </h1>
         <slide-up-element>
-            <p class="intro">Easily generate <strong>Zero UUID</strong>, <strong>Version 4 Random UUID</strong>, or
-                <strong>Time-Based UUID</strong> in one click.
+            <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random UUID</strong>, or
+                <strong>V7 Time-Based UUID</strong> in one click.
                 Perfect for developers, QA testers, or anyone who needs unique identifiers without hassle.
 
             </p>
         </slide-up-element>
+       
     </header>
 
     <main>
@@ -69,7 +109,7 @@
                     <path d="M8 3.5a.5.5 0 0 1 .5.5v3h2.5a.5.5 0 0 1 0 1H8A.5.5 0 0 1 7.5 8V4a.5.5 0 0 1 .5-.5Z" />
                     <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16Zm0-1A7 7 0 1 1 8 1a7 7 0 0 1 0 14Z" />
                 </svg>
-                Time-Based
+                V7 Time-Based
             </button>
         </div>
 
@@ -90,6 +130,16 @@
             </button>
         </div>
 
+        <section class="features" aria-label="Key Features">
+            <h2 class="visually-hidden">Key Features</h2>
+            <ul>
+                <li>✨ Instant UUID Generation</li>
+                <li>🔒 Secure Cryptographic Random Numbers</li>
+                <li>⚡ V7 UUID Support</li>
+                <li>📋 One-Click Copy</li>
+            </ul>
+        </section>
+
         <section class="faq">
             <h2>Frequently Asked Questions</h2>
 
@@ -104,6 +154,29 @@
                 <p>The Version 4 UUID generator on <strong>uuid.now</strong> uses your browser’s Crypto API to create
                     secure and random identifiers. Each UUID is unique and reliable, boosting the security of your
                     applications.</p>
+            </details>
+
+            <details name="accordion">
+                <summary>When should I use Time-Based UUID (V7)?</summary>
+                <p>Time-Based UUID (V7) is the latest UUID standard that combines timestamp data with random bits. They're perfect for:</p>
+                <ul>
+                    <li>Database indexing and sorting by creation time</li>
+                    <li>Distributed systems requiring chronological ordering</li>
+                    <li>Modern applications needing both uniqueness and time-based sorting</li>
+                </ul>
+                <p>V7 UUIDs are backward compatible while offering improved timestamp precision and better database performance.</p>
+            </details>
+
+            <details name="accordion">
+                <summary>What is UUID V7 and why should I use it?</summary>
+                <p>UUID V7 is the newest UUID standard that offers several advantages:</p>
+                <ul>
+                    <li>Millisecond-precision timestamps for accurate time ordering</li>
+                    <li>Better database performance due to monotonically increasing values</li>
+                    <li>Improved compatibility with modern database systems</li>
+                    <li>Perfect balance between randomness and time-based ordering</li>
+                </ul>
+                <p>It's recommended for new applications where chronological sorting is important.</p>
             </details>
 
             <details name="accordion">
