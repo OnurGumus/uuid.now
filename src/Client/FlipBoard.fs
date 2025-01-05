@@ -64,12 +64,12 @@ let FLIP_COUNT = 36 // 8-4-4-4-12
 let board = document.getElementById ("flipBoard")
 
 // Add a hidden aria-live region for final UUID announcements
-let srValue = document.createElement("div")
+let srValue = document.createElement ("div")
 srValue.id <- "screenReaderValue"
-srValue.setAttribute("aria-live", "polite")
+srValue.setAttribute ("aria-live", "polite")
 srValue?style?position <- "absolute"
 srValue?style?left <- "-9999px"
-document.body.appendChild(srValue) |> ignore
+document.body.appendChild (srValue) |> ignore
 
 //------------------------------------------
 // Building the Board
@@ -79,7 +79,7 @@ let buildFlip () =
     flip.className <- "flip"
     setData flip "value" ""
     setData flip "top" "0"
-    flip.setAttribute("aria-hidden", "true")
+    flip.setAttribute ("aria-hidden", "true")
 
     let ul = document.createElement ("ul")
     ul?style?insetBlockStart <- "0px"
@@ -174,14 +174,16 @@ let switchToGuid (guidStr: string) =
         let c = if i < guidStr.Length then guidStr.[i].ToString() else "-"
         // Stagger the flips a bit
         window.setTimeout ((fun () -> switchChar flipEl c), i * 50) |> ignore)
-    window.setTimeout(
+
+    window.setTimeout (
         (fun () ->
-            let srValEl = document.getElementById("screenReaderValue")
+            let srValEl = document.getElementById ("screenReaderValue")
+
             if not (isNull srValEl) then
-                srValEl.textContent <- guidStr
-        ),
+                srValEl.textContent <- guidStr),
         FLIP_COUNT * 60
-    ) |> ignore
+    )
+    |> ignore
 
 //------------------------------------------
 // Generate random v4 GUID
@@ -195,9 +197,9 @@ let getRandomV4Guid () =
 let getTimeBasedGuid () =
     // Get Unix timestamp in milliseconds
     let timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-    
+
     // Convert timestamp to bytes (48 bits = 6 bytes)
-    let timestampHex = 
+    let timestampHex =
         let ts = timestamp
         sprintf "%012x" ts
 
@@ -207,23 +209,26 @@ let getTimeBasedGuid () =
         |> Seq.cast<byte>
         |> Seq.map (fun b -> sprintf "%02x" b)
         |> String.concat ""
-    
+
     // Format: time_high-time_mid-ver_time_low-var_rand-rand
-    let timeLow = timestampHex.Substring(8, 4)  // Last 16 bits of timestamp
-    let timeMid = timestampHex.Substring(4, 4)  // Middle 16 bits
+    let timeLow = timestampHex.Substring(8, 4) // Last 16 bits of timestamp
+    let timeMid = timestampHex.Substring(4, 4) // Middle 16 bits
     let timeHigh = timestampHex.Substring(0, 4) // First 16 bits
-    
+
     // Version 7 and variant bits
-    let verTimeLow = "7" + timeLow.[1..3]      // Set version to 7
-    let varRand = 
+    let verTimeLow = "7" + timeLow.[1..3] // Set version to 7
+
+    let varRand =
         let firstNibble = randomBytes.[0]
-        let secondNibble = 
+
+        let secondNibble =
             match int ("0x" + randomBytes.[1].ToString()) &&& 0x0F with
             | n -> (n ||| 0x8) &&& 0xBF // Set variant bits (10)
+
         sprintf "%c%X" firstNibble secondNibble + randomBytes.Substring(2, 2)
-    
+
     let remaining = randomBytes.Substring(4)
-    
+
     sprintf "%s-%s-%s-%s-%s" timeHigh timeMid verTimeLow varRand remaining
     |> fun s -> s.ToUpperInvariant()
 
@@ -254,4 +259,21 @@ copyBtn.addEventListener (
                 ""
 
         window?navigator?clipboard?writeText (finalStr) |> ignore
+        let toast = document.getElementById ("toast")
+        toast?showPopover ()
+)
+
+document.addEventListener (
+    "DOMContentLoaded",
+    fun _ ->
+        let toast = document.getElementById ("toast")
+
+        toast.addEventListener (
+            "toggle",
+            fun (event) ->
+                let target = event.currentTarget
+
+                if (event.currentTarget?matches (":popover-open")) then
+                    window.setTimeout ((fun () -> target?hidePopover ()), 5000, [||]) |> ignore
+        )
 )

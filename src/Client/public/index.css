@@ -163,6 +163,7 @@
     :target {
         scroll-margin-block: 5ex;
     }
+
     .visually-hidden {
         position: absolute;
         width: 1px;
@@ -313,8 +314,8 @@
 
     .light-dark {
         position: absolute;
-        inset-block-start: 2rem;
-        inset-inline-end: 3rem;
+        inset-block-start: 1rem;
+        inset-inline-end: 1rem;
     }
 
     details {
@@ -349,6 +350,25 @@
         }
     }
 
+    .toast {
+        inset-block-end: 44px;
+        inset-inline-end: 24px;
+        inset-block-start: auto;
+        inset-inline-start: auto;
+        padding: 12px 16px;
+        border: 0;
+
+        @starting-style {
+            translate: 0 50px;
+        }
+
+        &:not(:popover-open) {
+            opacity: 0;
+            scale: .8;
+        }
+    }
+
+
 
 }
 
@@ -365,6 +385,9 @@
         --color-board-border: light-dark(oklch(0.61 0 0), oklch(0.39 0 0));
         --color-flip: light-dark(oklch(0.82 0 0), oklch(0.18 0 0));
         --color-faq: light-dark(oklch(0.68 0 0), oklch(0.32 0 0));
+    }
+    .now{
+        color:var(--color-button);
     }
 
     .dark-mode {
@@ -456,11 +479,21 @@
             background: var(--color-faq);
             color: var(--color-text);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            
+
             &:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
+        }
+    }
+    .toast {
+  
+        background-color:var(--color-button);
+        color:  var(--color-text);
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, .2) 0px 2px 4px;
+        &:not(:popover-open) {
+            filter: blur(6px);
         }
     }
 }
@@ -548,6 +581,12 @@
 }
 
 @layer animation {
+    :root {
+        --spring-easing: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017,
+                1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%,
+                1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
+                0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1);
+    }
 
     @keyframes circle-in-top-right {
         from {
@@ -591,4 +630,8 @@
     .features li {
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+    .toast {
+        transition: translate .4s var(--spring-easing), opacity .3s, filter .3s, scale .3s, display .4s allow-discrete, overlay .4s allow-discrete;
+    }
 }
+
