@@ -88,37 +88,51 @@ type LightDarkSwitch() =
         .checkbox:not(:checked) + .label .moon {
             color: #fff;
         }
-    </style>
+
+        .checkbox:focus-visible + .label {
+            outline: 2px solid #007fd4;
+            outline-offset: 2px;
+        }
+        
+        /* Hide decorative icons from screen readers */
+        .moon svg, .sun svg {
+            aria-hidden="true";
+        }
     </style>
     <div class="light-dark">
-        <input type="checkbox" class="checkbox" id="light-dark-checkbox" aria-label="Toggle dark mode">
+        <input type="checkbox" 
+               class="checkbox" 
+               id="light-dark-checkbox" 
+               aria-label="Switch to dark theme"
+               role="switch"
+               aria-checked="false">
         <label for="light-dark-checkbox" class="label">
-            <!-- Moon SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="moon">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z" 
+            <span class="moon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z" 
                       stroke="currentColor" 
                       fill="none" 
                       stroke-width="2" 
                       stroke-linecap="round" 
                       stroke-linejoin="round"/>
-            </svg>
-            
-            <!-- Sun SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sun">
-                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
-                <line x1="12" y1="3" x2="12" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="12" y1="23" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <div class="ball"></div>
+                </svg>
+            </span>
+            <span class="sun" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+                    <line x1="12" y1="3" x2="12" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="23" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="ball"></span>
         </label>
-    </div>
-</div>"""
+    </div>"""
 
     do
         let shadow = base.attachShadow {| mode = "open" |}
@@ -157,11 +171,20 @@ type LightDarkSwitch() =
 
         checkbox?``checked`` <- darkMode
 
+        // Update ARIA label based on state
+        let updateAriaLabel (isChecked: bool) =
+            checkbox?setAttribute("aria-label", if isChecked then "Switch to light theme" else "Switch to dark theme")
+            checkbox?setAttribute("aria-checked", string isChecked)
+
+        // Initial aria setup
+        updateAriaLabel darkMode
+
         checkbox?addEventListener (
             "change",
             fun e ->
                 let isChecked = e?target?``checked``
                 darkMode <- isChecked
+                updateAriaLabel isChecked
                 Browser.WebStorage.localStorage.setItem ("darkMode", string isChecked)
                 let detail = {| ``checked`` = isChecked |}
 
@@ -175,6 +198,16 @@ type LightDarkSwitch() =
                     )
 
                 this?dispatchEvent (event) |> ignore
+        )
+        |> ignore
+
+        // Add keyboard support
+        checkbox?addEventListener (
+            "keydown",
+            fun e ->
+                if e?key = "Enter" then
+                    e?preventDefault()
+                    checkbox?click() |> ignore
         )
         |> ignore
 
