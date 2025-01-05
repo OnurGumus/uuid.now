@@ -9,6 +9,7 @@
     <meta name="keywords"
         content="UUID generator, GUID generator, empty UUID, UUID v4, UUID v7, time-based UUID, online UUID tool, UUID generator online, generate UUID, create GUID, null UUID, UUID for testing, database UUID">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="/index.css?v=050120252110">
     <!-- Favicon & Apple Touch Icon -->
     <link rel="icon" href="/ico32x32.png">
@@ -60,7 +61,26 @@
             "V7 Time-Based UUID",
             "One-click Copy",
             "Dark Mode Support"
-        ]
+        ],
+        "mainEntity": {
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "What makes uuid.now special?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "uuid.now is easy to remember and lets you generate UUID quickly on a single, no-frills page. You get the UUID you need without any extra steps."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is UUID V7 and why should I use it?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "UUID V7 is the newest UUID standard that offers millisecond-precision timestamps, better database performance, improved compatibility with modern database systems, and perfect balance between randomness and time-based ordering."
+                }
+            }]
+        }
     }
     </script>
 </head>
@@ -133,28 +153,13 @@
             </button>
         </div>
 
-        <section class="features">
-            <h2>Key Features</h2>
-            <ul>
-                <li>✨ Instant UUID Generation</li>
-                <li>🔒 Secure Cryptographic Random Numbers</li>
-                <li>⚡ V7 UUID Support</li>
-                <li>📋 One-Click Copy</li>
-                <li>🔌 Works completely offline</li>
-                <li>♿ A11y and Screen reader friendly</li>
-            </ul>
-        </section>
-
         <section class="faq">
-            <h2>Frequently Asked Questions</h2>
-
+            <h2>UUID Generator FAQ</h2>
             <details name="accordion">
                 <summary>What makes uuid.now special?</summary>
                 <p><strong>uuid.now</strong> is easy to remember and lets you generate UUID quickly on a single,
                     no-frills page. You get the UUID you need without any extra steps.</p>
             </details>
-
-          
 
             <details name="accordion">
                 <summary>What is UUID V7 and why should I use it?</summary>
@@ -220,6 +225,18 @@ function generateV7UUID() {
                 <a href="https://github.com/OnurGumus/uuid.now">https://github.com/OnurGumus/uuid.now</a>. 
                 Feel free to explore, contribute, or use it as a reference for your own projects!</p>
             </details>
+        </section>
+
+        <section class="features">
+            <h2>UUID Generator Features</h2>
+            <ul>
+                <li>✨ Instant UUID Generation</li>
+                <li>🔒 Secure Cryptographic Random Numbers</li>
+                <li>⚡ V7 UUID Support</li>
+                <li>📋 One-Click Copy</li>
+                <li>🔌 Works completely offline</li>
+                <li>♿ A11y and Screen reader friendly</li>
+            </ul>
         </section>
 
     </main>
