@@ -6,6 +6,7 @@ open Fable.Core.JsInterop
 SlideUpElement.register ()
 CustomAnimatedText.register ()
 FancyButton.register ()
+LightDarkSwitch.register ()
 
 FlipBoard.switchToGuid "00000000-0000-0000-0000-000000000000" |> ignore
 
@@ -18,7 +19,7 @@ let toggleDarkMode () =
     let el = document.querySelector("custom-animated-text")
     el?triggerSlotChanged() |> ignore
 
-let lightDarkButton = document.querySelector(".light-dark .checkbox")
+let lightDarkButton = document.querySelector(".light-dark")
 
 lightDarkButton.addEventListener (
     "change",

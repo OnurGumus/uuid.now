@@ -13,8 +13,6 @@
     <!-- Favicon & Apple Touch Icon -->
     <link rel="icon" href="/ico32x32.png">
     <link rel="apple-touch-icon" href="/ico180x180.png"><!-- 180×180 -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="UUID Generator Online | Free GUID Generator (Empty, V4, V7)">
@@ -60,17 +58,11 @@
 
 <body>
     <header>
-        <div class="light-dark">
-            <input type="checkbox" class="checkbox" id="light-dark-checkbox" aria-label="Toggle dark mode">
-            <label for="light-dark-checkbox" class="label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <div class="ball"></div>
-            </label>
-        </div>
+        
         <h1>
             <custom-animated-text rotation>UUID.NOW</custom-animated-text>
         </h1>
+        <light-dark-switch class="light-dark"></light-dark-switch>
         <slide-up-element>
             <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random UUID</strong>, or
                 <strong>V7 Time-Based UUID</strong> in one click.

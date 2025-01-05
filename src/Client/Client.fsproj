@@ -10,6 +10,7 @@
     <Compile Include="SlideUpElement.fs" />
     <Compile Include="CustomAnimatedText.fs" />
     <Compile Include="FlipBoard.fs" />
+    <Compile Include="LightDarkSwitch.fs" />
     <Compile Include="App.fs" />
     <Content Include="paket.references" />
   </ItemGroup>

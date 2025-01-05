@@ -17,7 +17,7 @@ type CustomAnimatedText() =
     let slotChanged(self: Browser.Types.HTMLElement, innerContainer :Browser.Types.HTMLElement, slot:Browser.Types.HTMLElement) = 
         let assignedNodes = unbox<obj array> (slot?assignedNodes())
         // Clear any existing spans in innerContainer
-        innerContainer.innerHTML <- ""
+        innerContainer?replaceChildren()
 
         // First pass: count total letters
         let mutable totalLetters = 0

@@ -15,6 +15,7 @@ type SlideUpElement() =
 
     do
         sheet.replaceSync (
+        css
             """
         .clip-container {
           overflow: clip;

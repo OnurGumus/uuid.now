@@ -315,55 +315,6 @@
         position: absolute;
         inset-block-start: 2rem;
         inset-inline-end: 3rem;
-        /* background-color: white; */
-        zoom: 0.8;
-        
-
-        .checkbox {
-            opacity: 0;
-            position: absolute;
-        }
-
-        .checkbox:checked+.label .ball {
-            transform: translateX(24px);
-        }
-
-        .label {
-            background-color: #111;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 5px;
-            border-radius: 50px;
-            block-size: 26px;
-            inline-size: 50px;
-            position: relative;
-            transform: scale(2);
-        }
-
-        .ball {
-            inset-block-start: 2px;
-            inset-inline-start: 2px;
-            inline-size: 22px;
-            block-size: 22px;
-            background-color: white;
-            position: absolute;
-            border-radius: 50%;
-            transition: transform 0.3s linear;
-        }
-
-        .fa-moon {
-            color: yellow;
-        }
-
-        .fa-sun {
-            color: yellow;
-        }
-
-
-        img {
-            inline-size: 50px;
-        }
     }
 
     details {
@@ -424,28 +375,6 @@
         color-scheme: light;
     }
 
-    .light-dark {
-        .label {
-            background-color: #111;
-        }
-
-        .ball {
-            background-color: white;
-            border-radius: 50%;
-        }
-
-        .fa-moon {
-            color: yellow;
-        }
-
-        .fa-sun {
-            color: yellow;
-        }
-
-        img {
-            inline-size: 50px;
-        }
-    }
 
 
     body {
@@ -463,9 +392,6 @@
         color: var(--color-text);
         border-radius: 4px;
         box-shadow: 1px 2px 2px 0px oklch(0 0 0 / 0.52);
-        
- 
-        
 
         svg {
             fill: currentColor;
@@ -660,11 +586,7 @@
             animation: 2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-top-right forwards;
         }
     }
-    .light-dark {
-        .ball {
-            transition: transform 0.3s linear;
-        }
-    }
+
 
     .features li {
         transition: transform 0.2s ease, box-shadow 0.2s ease;
