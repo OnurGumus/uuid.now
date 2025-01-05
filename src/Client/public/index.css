@@ -351,7 +351,7 @@
     }
 
     .toast {
-        inset-block-end: 44px;
+        inset-block-end: 64px;
         inset-inline-end: 24px;
         inset-block-start: auto;
         inset-inline-start: auto;
@@ -359,7 +359,7 @@
         border: 0;
 
         @starting-style {
-            translate: 0 50px;
+            translate: 0 70px;
         }
 
         &:not(:popover-open) {
@@ -632,7 +632,7 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .toast {
-        transition: translate .4s var(--spring-easing), opacity .3s, filter .3s, scale .3s, display .4s allow-discrete, overlay .4s allow-discrete;
+        transition: translate .8s var(--spring-easing), opacity .3s, filter .3s, scale .3s, display .8s allow-discrete, overlay .8s allow-discrete;
     }
 }
 
