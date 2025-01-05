@@ -140,6 +140,8 @@
                 <li>🔒 Secure Cryptographic Random Numbers</li>
                 <li>⚡ V7 UUID Support</li>
                 <li>📋 One-Click Copy</li>
+                <li>🔌 Works completely offline</li>
+                <li>♿ A11y and Screen reader friendly</li>
             </ul>
         </section>
 
@@ -152,12 +154,7 @@
                     no-frills page. You get the UUID you need without any extra steps.</p>
             </details>
 
-            <details name="accordion">
-                <summary>How does the v4 UUID generator work?</summary>
-                <p>The Version 4 UUID generator on <strong>uuid.now</strong> uses your browser’s Crypto API to create
-                    secure and random identifiers. Each UUID is unique and reliable, boosting the security of your
-                    applications.</p>
-            </details>
+          
 
             <details name="accordion">
                 <summary>What is UUID V7 and why should I use it?</summary>
@@ -172,6 +169,42 @@
             </details>
 
             <details name="accordion">
+                <summary>How are the UUIDs generated in code?</summary>
+                <p>Here's how we generate both types of UUIDs:</p>
+                <pre><code>// V4 UUID (Random)
+crypto.randomUUID()  // Uses browser's secure random generator
+
+// V7 UUID (Time-based)
+function generateV7UUID() {
+  const timestamp = Date.now();              // Get current timestamp (ms)
+  const timeHex = timestamp.toString(16);    // Convert to hex
+  const randomBytes = crypto.getRandomValues(new Uint8Array(10));
+  
+  return [
+    timeHex.padStart(12, '0').slice(0, 8),  // time_high
+    timeHex.padStart(12, '0').slice(8, 12), // time_mid
+    '7' + randomBytes.slice(0, 3).toString(16), // version 7 + random
+    (0x80 | (randomBytes[3] & 0x3f)).toString(16) + // variant bits
+      randomBytes[4].toString(16),
+    randomBytes.slice(5).toString(16)        // remaining random
+  ].join('-').toUpperCase()
+}</code></pre>
+                <p>V4 uses pure randomness, while V7 combines timestamp with random data for sortability.</p>
+            </details>
+
+            <details name="accordion">
+                <summary>Why is this written in F#?</summary>
+                <p>While most web applications are written in JavaScript, we chose F# because:</p>
+                <ul>
+                    <li>F# can be transpiled to JavaScript using Fable compiler, making it work perfectly in browsers</li>
+                    <li>It provides strong type safety and immutability by default</li>
+                    <li>Functional programming makes it easier to reason about code</li>
+                    <li>It's a powerful language that's fun to work with - so why not?</li>
+                </ul>
+                <p>The end result is the same fast, efficient UUID generator you need, just written in a more robust language!</p>
+            </details>
+
+            <details name="accordion">
                 <summary>How do I copy a UUID?</summary>
                 <p>Copying a UUID on <strong>uuid.now</strong> is simple:</p>
                 <ul>
@@ -179,6 +212,13 @@
                     <li>Or highlight the UUID directly and use your system’s copy command (e.g., Ctrl/Cmd + C)</li>
                 </ul>
                 <p>Either way, it goes straight to your clipboard—ready to use in your projects.</p>
+            </details>
+
+            <details name="accordion">
+                <summary>Where can I find the source code?</summary>
+                <p>The complete source code for uuid.now is available on GitHub at 
+                <a href="https://github.com/OnurGumus/uuid.now">https://github.com/OnurGumus/uuid.now</a>. 
+                Feel free to explore, contribute, or use it as a reference for your own projects!</p>
             </details>
         </section>
 
