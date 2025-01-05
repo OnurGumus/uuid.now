@@ -197,39 +197,36 @@ let getRandomV4Guid () =
 let getTimeBasedGuid () =
     // Get Unix timestamp in milliseconds
     let timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-
-    // Convert timestamp to bytes (48 bits = 6 bytes)
-    let timestampHex =
-        let ts = timestamp
-        sprintf "%012x" ts
-
-    // Get 10 random bytes (we only need 10 since 6 are from timestamp)
-    let randomBytes =
-        window?crypto?getRandomValues (JS.Constructors.Uint8Array.Create(10))
+    
+    // Get 10 random bytes for the remaining fields
+    let randomBytes = 
+        window?crypto?getRandomValues(JS.Constructors.Uint8Array.Create(10))
         |> Seq.cast<byte>
         |> Seq.map (fun b -> sprintf "%02x" b)
         |> String.concat ""
-
-    // Format: time_high-time_mid-ver_time_low-var_rand-rand
-    let timeLow = timestampHex.Substring(8, 4) // Last 16 bits of timestamp
-    let timeMid = timestampHex.Substring(4, 4) // Middle 16 bits
-    let timeHigh = timestampHex.Substring(0, 4) // First 16 bits
-
-    // Version 7 and variant bits
-    let verTimeLow = "7" + timeLow.[1..3] // Set version to 7
-
-    let varRand =
-        let firstNibble = randomBytes.[0]
-
-        let secondNibble =
-            match int ("0x" + randomBytes.[1].ToString()) &&& 0x0F with
-            | n -> (n ||| 0x8) &&& 0xBF // Set variant bits (10)
-
-        sprintf "%c%X" firstNibble secondNibble + randomBytes.Substring(2, 2)
-
-    let remaining = randomBytes.Substring(4)
-
-    sprintf "%s-%s-%s-%s-%s" timeHigh timeMid verTimeLow varRand remaining
+    
+    // Format timestamp as hex (48 bits = 12 hex chars)
+    let timestampHex = sprintf "%012x" timestamp
+    
+    // First 48 bits are timestamp
+    let timeHigh = timestampHex.Substring(0, 8)  // First 32 bits
+    let timeMid = timestampHex.Substring(8, 4)   // Next 16 bits
+    
+    // Version 7
+    let version = "7"
+    let rand1 = randomBytes.Substring(0, 3)
+    let verRand = version + rand1
+    
+    // Variant bits (10xx)
+    let varByte = 
+        let randByte = Convert.ToByte(randomBytes.Substring(3, 2), 16)
+        sprintf "%02x" ((randByte &&& byte 0x3F) ||| byte 0x80)
+    
+    let remaining = randomBytes.Substring(5)
+    
+    sprintf "%s-%s-%s-%s%s-%s" 
+        timeHigh timeMid verRand varByte 
+        (randomBytes.Substring(4, 1)) remaining
     |> fun s -> s.ToUpperInvariant()
 
 //------------------------------------------
