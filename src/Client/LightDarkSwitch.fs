@@ -91,7 +91,7 @@ type LightDarkSwitch() as this  =
         <label for="light-dark-checkbox" class="label">
             <!-- Moon SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="moon">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" 
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z" 
                       stroke="currentColor" 
                       fill="none" 
                       stroke-width="2" 
@@ -122,13 +122,25 @@ type LightDarkSwitch() as this  =
         shadow?setHTMLUnsafe(content)
     
 
+    static member observedAttributes = [| "dark" |]
+    
+    override this.attributeChangedCallback(name: string, oldValue: obj, newValue: obj) =
+                console.log(name)
+                if name = "dark" then
+                    let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
+                    checkbox?``checked`` <- not (isNull newValue)
+                    // not required for inital but later
+                    checkbox?dispatchEvent(Browser.Event.Event.Create("change"));
     override this.connectedCallback() =
         let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
+        
+        // Set initial state based on attribute
+        checkbox?``checked`` <- not (isNull (this?getAttribute("dark")))
+        
         checkbox?addEventListener("change", fun e ->
             let detail = {| ``checked`` =  e?target?``checked`` |}
 
             let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail |})
-            console.log(event)
             this?dispatchEvent(event) |> ignore
         ) |> ignore
 
