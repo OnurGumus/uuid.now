@@ -22,7 +22,7 @@ let toggleDarkMode () =
 let lightDarkButton = document.querySelector(".light-dark")
 
 lightDarkButton.addEventListener (
-    "change",
+    "theme-changed",
     fun _ ->
         if document?startViewTransition then
             document?startViewTransition (fun _ -> toggleDarkMode ())

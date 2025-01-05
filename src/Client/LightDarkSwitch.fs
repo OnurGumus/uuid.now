@@ -3,6 +3,7 @@ module Client.LightDarkSwitch
 open Fable.Core.JsInterop
 open Client.WebComponent
 open Fable.Core
+open Browser
 [<AttachMembers>]
 [<AllowNullLiteral>]
 type LightDarkSwitch() as this  =
@@ -116,49 +117,20 @@ type LightDarkSwitch() as this  =
 </div>"""
     
     do
-        //this?setHTMLUnsafe(content)
 
-
-    // Create a shadow root in the constructor
         let shadow = base.attachShadow {| mode = "open" |}
         shadow?setHTMLUnsafe(content)
-    // // Create and adopt stylesheet
-    // let sheet = createCSSStyleSheet ()
-
-    // do
-    //     sheet.replaceSync (
-    //         """
-    //     .clip-container {
-    //       overflow: clip;
-    //       display: block;
-    //       inline-size: 100%;
-    //       block-size: 100%;
-    //     }
-
-    //     ::slotted(*) {
-    //       display: block;
-    //       transition: transform 1.3s cubic-bezier(0.55,-0.26, 0, 0.55),
-    //                  opacity 1.3s cubic-bezier(0.55,-0.26, 0, 0.55);
-    //     }
-    // """
-    //     )
-
-    // do setAdoptedStyleSheets shadow [| sheet |]
-
-    // // Create container
-    // let container = Browser.Dom.document.createElement ("div")
-    // do container.classList.add ("clip-container")
-
-    // // Create slot
-    // let slot = Browser.Dom.document.createElement ("slot")
-    // do container.appendChild (slot) |> ignore
-
-    // // Append container to shadow root
-    // do shadow.appendChild (container) |> ignore
+    
 
     override this.connectedCallback() =
-     ()
-        // In JS we do: this.shadowRoot.querySelector('slot').assignedElements()[0]
+        let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
+        checkbox?addEventListener("change", fun e ->
+            let detail = {| ``checked`` =  e?target?``checked`` |}
+
+            let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail |})
+            console.log(event)
+            this?dispatchEvent(event) |> ignore
+        ) |> ignore
 
 // Finally, define the new element
 customElements.define ("light-dark-switch", jsConstructor<LightDarkSwitch>, None)
