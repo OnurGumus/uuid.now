@@ -3,11 +3,12 @@ module Client.LightDarkSwitch
 open Fable.Core.JsInterop
 open Client.WebComponent
 open Fable.Core
-open Browser
+
 [<AttachMembers>]
 [<AllowNullLiteral>]
-type LightDarkSwitch() as this  =
+type LightDarkSwitch()  =
     inherit HTMLElement()
+    let mutable darkMode = false
     let content = html """
     <style>
         *{
@@ -117,7 +118,6 @@ type LightDarkSwitch() as this  =
 </div>"""
     
     do
-
         let shadow = base.attachShadow {| mode = "open" |}
         shadow?setHTMLUnsafe(content)
     
@@ -125,21 +125,38 @@ type LightDarkSwitch() as this  =
     static member observedAttributes = [| "dark" |]
     
     override this.attributeChangedCallback(name: string, oldValue: obj, newValue: obj) =
-                console.log(name)
-                if name = "dark" then
-                    let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
-                    checkbox?``checked`` <- not (isNull newValue)
-                    // not required for inital but later
-                    checkbox?dispatchEvent(Browser.Event.Event.Create("change"));
+        let storedDarkMode = Browser.WebStorage.localStorage.getItem("darkMode")
+        if storedDarkMode <> "false" && name = "dark" then
+            darkMode <- not (isNull newValue)
+            let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
+          
+            checkbox?``checked`` <- darkMode
+            Browser.WebStorage.localStorage.setItem("darkMode", string darkMode)
+            checkbox?dispatchEvent(Browser.Event.Event.Create("change"))
+
     override this.connectedCallback() =
         let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
         
-        // Set initial state based on attribute
-        checkbox?``checked`` <- not (isNull (this?getAttribute("dark")))
+        // Restore from local storage or attribute
+        let storedDarkMode = Browser.WebStorage.localStorage.getItem("darkMode")
+        match storedDarkMode with
+        | null -> 
+            darkMode <- not (isNull (this?getAttribute("dark")))
+        | value -> 
+            darkMode <- value = "true"
+            if darkMode then
+                if this?getAttribute("dark") = null then
+                    this?setAttribute("dark", "")
+            else
+                this?removeAttribute("dark")
+        
+        checkbox?``checked`` <- darkMode
         
         checkbox?addEventListener("change", fun e ->
-            let detail = {| ``checked`` =  e?target?``checked`` |}
-
+            let isChecked = e?target?``checked``
+            darkMode <- isChecked
+            Browser.WebStorage.localStorage.setItem("darkMode", string isChecked)
+            let detail = {| ``checked`` = isChecked |}
             let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail |})
             this?dispatchEvent(event) |> ignore
         ) |> ignore
