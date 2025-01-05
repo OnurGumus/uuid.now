@@ -63,6 +63,14 @@ let FLIP_COUNT = 36 // 8-4-4-4-12
 
 let board = document.getElementById ("flipBoard")
 
+// Add a hidden aria-live region for final UUID announcements
+let srValue = document.createElement("div")
+srValue.id <- "screenReaderValue"
+srValue.setAttribute("aria-live", "polite")
+srValue?style?position <- "absolute"
+srValue?style?left <- "-9999px"
+document.body.appendChild(srValue) |> ignore
+
 //------------------------------------------
 // Building the Board
 //------------------------------------------
@@ -71,6 +79,7 @@ let buildFlip () =
     flip.className <- "flip"
     setData flip "value" ""
     setData flip "top" "0"
+    flip.setAttribute("aria-hidden", "true")
 
     let ul = document.createElement ("ul")
     ul?style?insetBlockStart <- "0px"
@@ -165,6 +174,14 @@ let switchToGuid (guidStr: string) =
         let c = if i < guidStr.Length then guidStr.[i].ToString() else "-"
         // Stagger the flips a bit
         window.setTimeout ((fun () -> switchChar flipEl c), i * 50) |> ignore)
+    window.setTimeout(
+        (fun () ->
+            let srValEl = document.getElementById("screenReaderValue")
+            if not (isNull srValEl) then
+                srValEl.textContent <- guidStr
+        ),
+        FLIP_COUNT * 60
+    ) |> ignore
 
 //------------------------------------------
 // Generate random v4 GUID

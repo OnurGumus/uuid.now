@@ -8,7 +8,7 @@ CustomAnimatedText.register ()
 FancyButton.register ()
 LightDarkSwitch.register ()
 
-FlipBoard.switchToGuid "00000000-0000-0000-0000-000000000000" |> ignore
+FlipBoard.getRandomV4Guid () |> FlipBoard.switchToGuid |> ignore
 
 document.documentElement.classList.toggle ("dark-mode") |> ignore
 

@@ -16,19 +16,76 @@
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="UUID Generator Online | Free GUID Generator (Empty, V4, V7)">
-    <meta property="og:description" content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
+    <meta property="og:description"
+        content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://uuid.now">
     <meta property="og:image" content="https://uuid.now/uuid-social-media.png">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="UUID Generator Online | Free GUID Generator">
-    <meta name="twitter:description" content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
+    <meta name="twitter:description"
+        content="Generate UUIDs instantly - Empty, V4 Random, or V7 Time-Based. Perfect for developers and testers.">
     <meta name="twitter:image" content="https://uuid.now/uuid-social-media.png">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://uuid.now">
+
+    <style>
+        :root {
+            --spring-easing: linear(0, 0.009, 0.035 2.1%, 0.141, 0.281 6.7%, 0.723 12.9%, 0.938 16.7%, 1.017,
+                    1.077, 1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%,
+                    1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
+                    0.997 69.8%, 1.003 76.9%, 1.004 83.8%, 1);
+        }
+
+        .toast:not(:popover-open) {
+            opacity: 0;
+            filter: blur(6px);
+            scale: .8;
+        }
+
+        .toast {
+            bottom: 16px;
+            left: 24px;
+            right: auto;
+            top: auto;
+            padding: 12px 16px;
+            border: 0;
+            background-color: #181818;
+            color: white;
+            border-radius: 8px;
+            transition: translate .4s var(--spring-easing), opacity .3s, filter .3s, scale .3s, display .4s allow-discrete, overlay .4s allow-discrete;
+            box-shadow: rgba(0, 0, 0, .2) 0px 2px 4px;
+        }
+
+        @starting-style {
+            .toast {
+                translate: 0 30px;
+            }
+        }
+        /*  Transition to these styles on entry, and from these styles on exit   */
+[popover]:popover-open {
+  opacity: 1;
+  rotate: 0turn;
+  transition: rotate .5s, opacity .5s, display .5s allow-discrete, overlay .5s allow-discrete;
+}
+
+/*   Entry transition starts with these styles  */
+@starting-style {
+  [popover]:popover-open {
+    opacity: 0;
+    rotate: 1turn;
+  }
+}
+
+/*  Exit transition ends with these styles  */
+[popover]:not(:popover-open) {
+  scale: 0;
+  transition: scale .3s, display .3s allow-discrete, overlay .3s allow-discrete;
+}
+    </style>
 
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
@@ -58,21 +115,24 @@
 
 <body>
     <header>
-        
+
         <h1>
             <custom-animated-text rotation>UUID.NOW</custom-animated-text>
         </h1>
         <light-dark-switch class="light-dark" dark></light-dark-switch>
         <slide-up-element>
-            <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random UUID</strong>, or
+            <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random
+                    UUID</strong>, or
                 <strong>V7 Time-Based UUID</strong> in one click.
                 Perfect for developers, QA testers, or anyone who needs unique identifiers without hassle.
 
             </p>
         </slide-up-element>
-       
-    </header>
 
+    </header>
+    <div class="toast" id="toast" popover="manual">
+        Hello I am a toast notificationd
+      </div>
     <main>
 
         <div class="top-buttons">
@@ -178,6 +238,23 @@
         <small>Made by <a href="https://onur.works">onur.works</a></small>
     </footer>
     <script type=module src="build/App.js"></script>
+    <script>
+        const toast = document.getElementById('toast');
+
+setTimeout(function() {
+  toast.showPopover()
+}, 4000);
+
+toast.addEventListener('toggle', function(event) {
+  const target = event.currentTarget;
+if (event.currentTarget.matches(':popover-open') ) {
+  setTimeout(function() {
+    target.hidePopover(); 
+  }, 5000)
+} 
+   else {return}
+})
+    </script>
 </body>
 
 </html>

@@ -73,6 +73,7 @@ type CustomAnimatedText() =
                             let ch = textContent.[i]
                             let span = document.createElement("span")
                             span.textContent <- if ch = ' ' then "\u00A0" else string ch
+                            span.setAttribute("aria-hidden", "true")
                             applyStyles (span :?> HTMLElement)
 
                             let delay = float currentIndex * step

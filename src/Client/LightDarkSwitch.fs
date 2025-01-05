@@ -6,10 +6,13 @@ open Fable.Core
 
 [<AttachMembers>]
 [<AllowNullLiteral>]
-type LightDarkSwitch()  =
+type LightDarkSwitch() =
     inherit HTMLElement()
     let mutable darkMode = false
-    let content = html """
+
+    let content =
+        html
+            """
     <style>
         *{
             box-sizing: border-box;
@@ -75,7 +78,7 @@ type LightDarkSwitch()  =
         }
 
         .checkbox:checked + .label .moon {
-            color: #ffffff80;
+            color: #fff;
         }
 
         .checkbox:not(:checked) + .label .sun {
@@ -116,50 +119,64 @@ type LightDarkSwitch()  =
         </label>
     </div>
 </div>"""
-    
+
     do
         let shadow = base.attachShadow {| mode = "open" |}
-        shadow?setHTMLUnsafe(content)
-    
+        shadow?setHTMLUnsafe (content)
+
 
     static member observedAttributes = [| "dark" |]
-    
+
     override this.attributeChangedCallback(name: string, oldValue: obj, newValue: obj) =
-        let storedDarkMode = Browser.WebStorage.localStorage.getItem("darkMode")
+        let storedDarkMode = Browser.WebStorage.localStorage.getItem ("darkMode")
+
         if storedDarkMode <> "false" && name = "dark" then
             darkMode <- not (isNull newValue)
-            let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
-          
+            let checkbox = this.shadowRoot?querySelector ("#light-dark-checkbox")
+
             checkbox?``checked`` <- darkMode
-            Browser.WebStorage.localStorage.setItem("darkMode", string darkMode)
-            checkbox?dispatchEvent(Browser.Event.Event.Create("change"))
+            Browser.WebStorage.localStorage.setItem ("darkMode", string darkMode)
+            checkbox?dispatchEvent (Browser.Event.Event.Create("change"))
 
     override this.connectedCallback() =
-        let checkbox = this.shadowRoot?querySelector("#light-dark-checkbox")
-        
+        let checkbox = this.shadowRoot?querySelector ("#light-dark-checkbox")
+
         // Restore from local storage or attribute
-        let storedDarkMode = Browser.WebStorage.localStorage.getItem("darkMode")
+        let storedDarkMode = Browser.WebStorage.localStorage.getItem ("darkMode")
+
         match storedDarkMode with
-        | null -> 
-            darkMode <- not (isNull (this?getAttribute("dark")))
-        | value -> 
+        | null -> darkMode <- not (isNull (this?getAttribute ("dark")))
+        | value ->
             darkMode <- value = "true"
+
             if darkMode then
-                if this?getAttribute("dark") = null then
-                    this?setAttribute("dark", "")
+                if this?getAttribute ("dark") = null then
+                    this?setAttribute ("dark", "")
             else
-                this?removeAttribute("dark")
-        
+                this?removeAttribute ("dark")
+
         checkbox?``checked`` <- darkMode
-        
-        checkbox?addEventListener("change", fun e ->
-            let isChecked = e?target?``checked``
-            darkMode <- isChecked
-            Browser.WebStorage.localStorage.setItem("darkMode", string isChecked)
-            let detail = {| ``checked`` = isChecked |}
-            let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail; cancelable = true |})
-            this?dispatchEvent(event) |> ignore
-        ) |> ignore
+
+        checkbox?addEventListener (
+            "change",
+            fun e ->
+                let isChecked = e?target?``checked``
+                darkMode <- isChecked
+                Browser.WebStorage.localStorage.setItem ("darkMode", string isChecked)
+                let detail = {| ``checked`` = isChecked |}
+
+                let event =
+                    Browser.Event.CustomEvent.Create(
+                        "theme-changed",
+                        !!{| bubbles = true
+                             composed = true
+                             detail = detail
+                             cancelable = true |}
+                    )
+
+                this?dispatchEvent (event) |> ignore
+        )
+        |> ignore
 
 // Finally, define the new element
 customElements.define ("light-dark-switch", jsConstructor<LightDarkSwitch>, None)
