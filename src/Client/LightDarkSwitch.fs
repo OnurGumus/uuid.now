@@ -157,7 +157,7 @@ type LightDarkSwitch()  =
             darkMode <- isChecked
             Browser.WebStorage.localStorage.setItem("darkMode", string isChecked)
             let detail = {| ``checked`` = isChecked |}
-            let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail |})
+            let event = Browser.Event.CustomEvent.Create ("theme-changed", !! {| bubbles = true; composed = true; detail = detail; cancelable = true |})
             this?dispatchEvent(event) |> ignore
         ) |> ignore
 
