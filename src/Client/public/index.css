@@ -378,7 +378,7 @@
         --color-text: light-dark(oklch(0 0 0), oklch(1 0 0));
         --color-text-secondary: light-dark(oklch(0.15 0 0), oklch(0.85 0 0));
         --color-button: light-dark(oklch(60% 0.25 11.71), oklch(41% 0.28 11.71));
-        --color-button-hover: light-dark(oklch(64% 0.33 6.34), oklch(67% 0.33 6.34));
+        --color-button-hover: light-dark(oklch(58% 0.33 6.34), oklch(48% 0.33 6.34));
         --color-board: light-dark(oklch(0.78 0 0), oklch(0.2 0 0));
         --color-board-border: light-dark(oklch(0.61 0 0), oklch(0.39 0 0));
         --color-flip: light-dark(oklch(0.82 0 0), oklch(0.18 0 0));

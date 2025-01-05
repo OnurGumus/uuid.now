@@ -168,8 +168,7 @@ type LightDarkSwitch() =
                     this?setAttribute ("dark", "")
             else
                 this?removeAttribute ("dark")
-
-        checkbox?``checked`` <- darkMode
+            checkbox?``checked`` <- darkMode
 
         // Update ARIA label based on state
         let updateAriaLabel (isChecked: bool) =
@@ -196,7 +195,6 @@ type LightDarkSwitch() =
                              detail = detail
                              cancelable = true |}
                     )
-
                 this?dispatchEvent (event) |> ignore
         )
         |> ignore
@@ -211,7 +209,6 @@ type LightDarkSwitch() =
         )
         |> ignore
 
-// Finally, define the new element
 customElements.define ("light-dark-switch", jsConstructor<LightDarkSwitch>, None)
 
 let register () = ()

@@ -20,6 +20,8 @@ let toggleDarkMode () =
     el?triggerSlotChanged() |> ignore
 
 let lightDarkButton = document.querySelector(".light-dark")
+if lightDarkButton.hasAttribute("dark") |> not then
+    toggleDarkMode ()
 
 lightDarkButton.addEventListener (
     "theme-changed",
