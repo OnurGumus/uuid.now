@@ -19,13 +19,13 @@
     ],
     "icons": [
       {
-        "src": "/assets/images/logo-512-3.png",
+        "src": "/uuid-logo-512.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "any"
       },
       {
-        "src": "/assets/images/logo-512-3.png",
+        "src": "/uuid-logo-512.png",
         "sizes": "512x512",
         "type": "image/png",
         "purpose": "maskable"
@@ -33,13 +33,13 @@
     ],
     "screenshots": [
       {
-        "src": "assets/screenshots/screen.png",
-        "sizes": "2194x1186",
+        "src": "/uuid-screen.png",
+        "sizes": "2880x1824",
         "type": "image/png"
       }
     ],
     "categories": [
-      "business",
+      "development",
       "utilities",
       "productivity"
     ],
