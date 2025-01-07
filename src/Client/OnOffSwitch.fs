@@ -1,4 +1,3 @@
-
 module Client.OnOffSwitch
 
 open Fable.Core.JsInterop
@@ -7,9 +6,11 @@ open Fable.Core
 
 [<AttachMembers>]
 [<AllowNullLiteral>]
-type OnOffSwitch() =
+type OnOffSwitch() as this =
     inherit HTMLElement()
     let mutable isOn = false
+    let mutable storeKey = "isOn"
+    let mutable doPersist = false
 
     let content =
         html
@@ -123,24 +124,33 @@ type OnOffSwitch() =
         shadow?setHTMLUnsafe (content)
 
 
-    static member observedAttributes = [| "on" |]
+    static member observedAttributes = [| "on"; "name"; "persist" |]
 
-    override this.attributeChangedCallback(name: string, oldValue: obj, newValue: obj) =
-        let storedOn = Browser.WebStorage.localStorage.getItem ("isOn")
-
-        if storedOn <> "false" && name = "on" then
+    override this.attributeChangedCallback(attrName, oldValue, newValue) =
+        match attrName with
+        | "name" ->
+            storeKey <- if isNull newValue then "isOn" else string newValue
+        | "persist" ->
+            doPersist <- not (isNull newValue)
+        | "on" ->
+            // Always set based on attribute presence, then persist if enabled
             isOn <- not (isNull newValue)
-            let checkbox = this.shadowRoot?querySelector ("#on-off-checkbox")
-
+            let checkbox = this.shadowRoot?querySelector("#on-off-checkbox")
             checkbox?``checked`` <- isOn
-            Browser.WebStorage.localStorage.setItem ("isOn", string isOn)
-            checkbox?dispatchEvent (Browser.Event.Event.Create("change"))
+            if doPersist then
+                Browser.WebStorage.localStorage.setItem(storeKey, string isOn)
+            checkbox?dispatchEvent(Browser.Event.Event.Create("change"))
+        | _ -> ()
 
     override this.connectedCallback() =
         let checkbox = this.shadowRoot?querySelector ("#on-off-checkbox")
 
         // Restore from local storage or attribute
-        let storedOn = Browser.WebStorage.localStorage.getItem ("isOn")
+        let storedOn =
+            if doPersist then
+                Browser.WebStorage.localStorage.getItem(storeKey)
+            else
+                null
 
         match storedOn with
         | null -> isOn <- not (isNull (this?getAttribute ("on")))
@@ -168,7 +178,8 @@ type OnOffSwitch() =
                 let isChecked = e?target?``checked``
                 isOn <- isChecked
                 updateAriaLabel isChecked
-                Browser.WebStorage.localStorage.setItem ("isOn", string isChecked)
+                if doPersist then
+                    Browser.WebStorage.localStorage.setItem(storeKey, string isChecked)
                 let detail = {| ``checked`` = isChecked |}
 
                 let event =
