@@ -89,7 +89,8 @@
             <custom-animated-text rotation>UUID.<span class="now">NOW</span></custom-animated-text>
         </h1>
         <div class="switches">
-            <on-off-switch class="light-dark on-off" style="--on-color:#ffa000; --off-color:#1a237e" on name="theme-switch" persist>
+            <on-off-switch class="light-dark on-off" style="--on-color:#ffa000; --off-color:#1a237e" on
+                name="theme-switch" persist>
                 <span slot="off-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z" stroke="currentColor" fill="none"
@@ -118,7 +119,8 @@
                     </svg>
                 </span>
             </on-off-switch> <br />
-            <on-off-switch class="speed-toggle on-off" on style="--on-color:red; --off-color:green"  name="speed-switch" persist>
+            <on-off-switch class="speed-toggle on-off" on style="--on-color:red; --off-color:green" name="speed-switch"
+                persist>
                 <span slot="off-icon">
                     <svg fill="currentColor" height="800px" width="800px" version="1.1" id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -300,6 +302,15 @@
                     <li>Perfect balance between randomness and time-based ordering</li>
                 </ul>
                 <p>It's recommended for new applications where chronological sorting is important.</p>
+            </details>
+            <details name="accordion">
+                <summary>Nice but this is slow, can I make it faster?</summary>
+                <p>Yes! We've included a speed toggle switch (the tortoise/hare icon in the header) that can
+                    significantly improve the UUID generation animation speed.</p>
+                <ul>
+                    <li>🐢 Tortoise mode: Slower, more visible animations</li>
+                    <li>🐇 Hare mode: Faster animations for quick UUID generation</li>
+                </ul>
             </details>
 
             <details name="accordion">
