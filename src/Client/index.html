@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Free UUID Generator Online: Create V7, V4, & Empty UUIDs | uuid.now</title>
-    <meta name="description" content="Generate UUIDs instantly with this free online tool. Create V7 Time-Based, V4 Random, and Empty UUIDs for testing, databases, and more. Fast and secure for developers."/>   
+    <meta name="description"
+        content="Generate UUIDs instantly with this free online tool. Create V7 Time-Based, V4 Random, and Empty UUIDs for testing, databases, and more. Fast and secure for developers." />
     <meta name="keywords"
         content="UUID generator, GUID generator, empty UUID, UUID v4, UUID v7, time-based UUID, online UUID tool, UUID generator online, generate UUID, create GUID, null UUID, UUID for testing, database UUID">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,31 +88,139 @@
         <h1>
             <custom-animated-text rotation>UUID.<span class="now">NOW</span></custom-animated-text>
         </h1>
-        <on-off-switch class="light-dark on-off" on name="themeSwitch" persist>
-            <span slot="off-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z"
-                        stroke="currentColor"
-                        fill="none"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                </svg>
-            </span>
-            <span slot="on-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
-                    <line x1="12" y1="3" x2="12" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="12" y1="23" x2="12" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </span>
-        </on-off-switch>
+        <div class="switches">
+            <on-off-switch class="light-dark on-off" style="--on-color:#ffa000; --off-color:#1a237e" on name="theme-switch" persist>
+                <span slot="off-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z" stroke="currentColor" fill="none"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                <span slot="on-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor" />
+                        <line x1="12" y1="3" x2="12" y2="1" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="12" y1="23" x2="12" y2="21" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </span>
+            </on-off-switch> <br />
+            <on-off-switch class="speed-toggle on-off" off style="--on-color:red; --off-color:green"  name="speedSwitch" persist>
+                <span slot="off-icon">
+                    <svg fill="currentColor" height="800px" width="800px" version="1.1" id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 465.708 465.708" xml:space="preserve">
+                        <g>
+                            <path d="M465.708,232.847l-30.725-30.729l0.002-0.002l-32.908-32.909l-24.034-24.037c-5.31-5.375-11.123-9.938-13.577-11.753
+                       c-21.583-15.965-47.113-24.568-74.102-24.568c-26.707,0-52.059,8.333-73.43,24.078c-0.377,0.278-0.763,0.538-1.137,0.821
+                       c-0.021,0.016-0.041,0.032-0.061,0.048c0,0-7.878,6.124-13.057,11.374l-37.903,37.907l-18.633,18.633l0.001,0.001l-19.896,19.898
+                       c-11.074-9.525-25.026-14.735-39.786-14.735c-16.332,0-31.682,6.359-43.222,17.905L0,268.007l43.237,43.225
+                       c11.542,11.548,26.893,17.907,43.224,17.907c16.331,0,31.684-6.359,43.23-17.906l20.579-20.578v66.18h85.09v-12.844
+                       c17.297,8.573,36.144,12.869,54.995,12.869c18.855,0,37.708-4.298,55.01-12.875v12.852h85.09v-77.09
+                       c0-3.526-0.436-6.993-1.283-10.364L465.708,232.847z M158.947,254.034l-13.228-13.227h29.98
+                       C169.054,243.739,163.295,248.32,158.947,254.034z M145.676,224.807l12.377-12.378c5.965,3.847,12.909,5.917,20.177,5.917
+                       c20.586,0,37.335-16.749,37.335-37.335c0-7.269-2.071-14.215-5.919-20.181l4.346-4.347c1.109-1.109,2.256-2.19,3.42-3.258
+                       c13.624,27.392,41.67,45.135,72.952,45.135c31.279,0,59.321-17.742,72.944-45.134c1.163,1.067,2.309,2.147,3.416,3.254l4.738,4.738
+                       c-3.689,5.883-5.674,12.694-5.674,19.792c0,20.586,16.751,37.335,37.342,37.335c7.088,0,13.894-1.985,19.78-5.673l12.133,12.134
+                       H145.676z M199.565,181.011c0,11.764-9.571,21.335-21.335,21.335c-2.932,0-5.773-0.587-8.39-1.706l28.02-28.02
+                       C198.979,175.237,199.565,178.079,199.565,181.011z M232.22,141.817c0.249-0.16,0.496-0.324,0.746-0.482
+                       c34.914-21.91,79.872-21.911,114.771-0.013c0.264,0.166,0.525,0.339,0.787,0.508c0.633,0.405,1.259,0.825,1.886,1.245
+                       c-10.33,23.721-33.773,39.285-60.045,39.285c-26.277,0-49.722-15.563-60.052-39.285
+                       C230.946,142.651,231.579,142.227,232.22,141.817z M411.062,200.823c-2.494,0.999-5.177,1.522-7.932,1.522
+                       c-11.768,0-21.342-9.571-21.342-21.335c0-2.761,0.523-5.448,1.521-7.942l7.33,7.33L411.062,200.823z M435.122,240.807
+                       l-13.272,13.272c-1.175-1.549-2.462-3.024-3.856-4.419c-3.784-3.783-8.159-6.755-12.911-8.853H435.122z M118.378,299.92
+                       c-8.525,8.524-19.86,13.219-31.917,13.219c-12.057,0-23.388-4.694-31.91-13.22l-31.921-31.912l31.923-31.915
+                       c8.52-8.523,19.851-13.218,31.908-13.218c11.165,0,21.706,4.033,29.975,11.398l33.795,33.795L118.378,299.92z M219.361,340.835
+                       h-53.09v-61.09c0-14.637,11.908-26.545,26.545-26.545c14.637,0,26.545,11.908,26.545,26.545V340.835z M235.361,325.796v-46.052
+                       c0-17.372-10.471-32.337-25.429-38.938h160.856c-14.954,6.603-25.421,21.568-25.421,38.94v46.051
+                       C311.512,345.882,269.215,345.878,235.361,325.796z M414.456,340.836h-53.09v-61.09c0-14.64,11.906-26.55,26.54-26.55
+                       c7.091,0,13.758,2.762,18.772,7.776c2.617,2.618,4.62,5.677,5.956,9.095l0.005,0.011l-0.001,0c1.206,3.073,1.817,6.326,1.817,9.667
+                       V340.836z" />
+                            <path d="M85.899,241.091c-15.697,0-28.468,12.771-28.468,28.468s12.771,28.468,28.468,28.468s28.468-12.771,28.468-28.468
+                       S101.597,241.091,85.899,241.091z M85.899,282.026c-6.875,0-12.468-5.593-12.468-12.468s5.593-12.468,12.468-12.468
+                       s12.468,5.593,12.468,12.468S92.774,282.026,85.899,282.026z" />
+                        </g>
+                    </svg>
+                </span>
+                <span slot="on-icon">
+                    <svg fill="currentColor" height="800px" width="800px" version="1.1" id="_x32_"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 512 512" xml:space="preserve">
+                        <g>
+                            <path class="st0" d="M146.278,198.82c-7.586,0-13.725,6.14-13.725,13.725c0,7.587,6.14,13.726,13.725,13.726
+                       c7.578,0,13.725-6.139,13.725-13.726C160.003,204.959,153.855,198.82,146.278,198.82z" />
+                            <path class="st0"
+                                d="M197.147,119.686c0.886,18.03,33.907-37.134,32.297-61.366C227.817,34.106,195.52,87.389,197.147,119.686z" />
+                            <path class="st0" d="M47.704,274.96l-0.036-0.108c-0.009-0.018-0.018-0.063-0.027-0.072c0-0.018-0.009-0.018-0.009-0.018
+                       L47.704,274.96z" />
+                            <path class="st0"
+                                d="M91.973,21.61l0.126-0.163c0,0,0.019-0.019,0.037-0.036c0,0,0.008-0.028,0.018-0.036L91.973,21.61z" />
+                            <path class="st0"
+                                d="M376.237,508.98l-0.66,0.417c-0.018,0-0.027,0.027-0.036,0.027L376.237,508.98z" />
+                            <polygon class="st0" points="265.557,16.564 265.665,16.782 265.684,16.791 	" />
+                            <path class="st0" d="M253.983,4.575c0,0,0,0-0.009,0l0.028,0.018L253.983,4.575z" />
+                            <path class="st0" d="M443.246,392.214c0.108-2.007,0.362-3.888,0.362-5.995c0.009-18.408-3.916-38.255-13.274-58.816
+                       c-17.912-39.802-47.922-62.199-77.904-76.457l-0.099-0.055l-2.233-1.066l2.017,0.977c-29.865-14.214-60.228-21.872-82.579-32.677
+                       l-0.036-0.028c-14.25-6.988-22.261-16.329-27.578-30.055l-0.018-0.045l-0.036-0.109l-0.154-0.416l-0.063-0.171
+                       c-0.886-2.216-4.919-15.091-4.802-24.287v-0.054v-0.109c-0.008-2.613,0.299-4.945,0.715-6.428l0.018-0.072
+                       c1.375-5.452,6.168-14.169,11.9-24.196l0.018-0.027c5.678-10.172,12.334-22.243,16.113-36.755
+                       c4.539-17.568,6.954-33.238,6.962-46.908c-0.054-11.602-1.609-22.289-6.872-31.62l-0.036-0.063
+                       c-2.712-4.711-6.546-9.078-11.682-12.188c-5.054-3.075-10.796-4.53-16.546-4.566V0.018L237.22,0v0.018
+                       c-0.036,0-0.127,0.009-0.163,0.009V0.018c-0.045,0-0.082,0.009-0.118,0.009c-0.28,0-0.651,0.063-1.292,0.154
+                       c-11.683,0.552-22.532,5.814-33.762,13.816l-0.054,0.036c-13.924,10.154-24.051,23.454-31.628,37.252
+                       c-1.609-3.788-3.12-7.694-5.018-11.112l-0.009-0.018c-5.18-9.25-11.248-17.134-18.427-23.183h-0.009
+                       c-7.016-5.895-15.796-10.389-25.923-10.56V6.366l-0.67-0.019c-11.31,0.009-21.411,6.094-28.01,15.064
+                       c-6.564,8.77-10.634,19.956-13.247,33.834v0.027c-1.14,6.176-1.637,12.351-1.637,18.4v0.046c0.218,29.847,11.284,56.9,19.006,72.57
+                       c-10.209,7.921-24.486,20.787-35.987,38.617l0.561-0.868l-0.57,0.878c-14.675,22.884-20.57,41.23-20.57,57.297
+                       c-0.018,14.313,4.792,25.19,7.948,32.569c5.072,12.279,14.096,20.272,23.174,24.359v0.018c6.447,2.884,12.179,4.521,17.134,6.058
+                       l-0.37,2.496l10.47,1.41c0.778,0.362,1.375,0.642,1.61,0.795l0.018,0.028c3.472,2.169,6.781,4.945,10.461,10.28
+                       c3.644,5.326,7.514,13.31,11.13,25.426l0.019,0.045c3.643,12.27,11.049,32.415,17.595,52.976v0.027
+                       c3.237,10.082,6.221,20.299,8.354,29.232c2.152,8.879,3.39,16.673,3.346,20.815v0.199v0.054l-0.073,1.565
+                       c-3.552,3.825-6.329,8.02-7.866,12.26c-1.953,5.335-2.577,10.551-2.586,15.144l0.01,0.299v-0.064
+                       c0.027,6.474,1.14,12.071,2.233,16.203c0.561,2.062,1.121,3.77,1.555,5.009l0.552,1.456h0.008l0.136,0.406l1.808,4.368l2.649,6.356
+                       h64.36h4.982h153.077l4.087-2.559l0.063-0.044c6.312-4.014,16.438-12.433,27.415-24.621c5.732,2.324,11.98,3.743,18.607,3.743
+                       c28.03-0.009,50.698-22.704,50.707-50.698C472.288,417.532,460.353,400.244,443.246,392.214z M421.6,465.272
+                       c-6.853,0-13.02-2.604-17.939-6.863l-5.216-4.548l-4.178,5.506c-11.41,15.1-23.826,25.408-29.621,29.377H226.162
+                       c0.353-2.053,0.94-4.394,1.971-6.709c2.143-4.693,5.524-9.069,12.776-11.772l-4.412-12.134
+                       c-10.805,3.861-17.126,11.592-20.182,18.699c-1.963,4.466-2.776,8.59-3.147,11.917h-48.265c-0.778-2.812-1.609-6.646-1.591-10.579
+                       c0.036-5.29,1.32-9.801,4.973-12.93l0.985-0.85l-0.968,0.832c2.442-2.116,3.762-4.855,4.512-7.559
+                       c0.76-2.731,1.022-5.588,1.022-8.662c-0.091-14.81-6.103-36.167-12.803-57.379c-6.709-21.059-14.25-41.664-17.451-52.524
+                       c-5.009-16.972-11.175-28.545-18.102-36.872c8.843,1.004,14.512,1.537,14.558,1.537l1.167-12.867
+                       c-0.009,0-4.367-0.406-11.583-1.202c-6.348-0.696-14.937-1.745-24.54-3.066c-5.678-2.523-11.122-3.996-15.751-5.398
+                       c-4.91-1.465-8.952-2.929-12.134-5.1c-3.192-2.206-5.806-5.036-8.156-10.416c-3.218-7.523-6.085-14.35-6.094-23.5
+                       c0-10.19,3.653-24.041,16.899-44.756c8.056-12.605,18.508-22.84,26.917-29.821c4.214-3.499,7.902-6.184,10.525-7.992
+                       c1.302-0.905,2.332-1.574,3.038-2.026l0.778-0.488l0.226-0.136l5.651-3.363l-3.472-5.597l-0.216-0.362
+                       c-2.442-3.888-22.912-39.766-22.785-73.998c0-4.792,0.388-9.548,1.248-14.177c2.152-11.7,5.515-19.603,8.951-24.106
+                       c3.544-4.52,6.474-5.705,9.638-5.777c3.047-0.027,7.052,1.492,11.456,5.172c13.292,10.896,27.108,40.064,28.165,76.25
+                       c-2.387,11.456-3.129,19.168-3.156,19.34l12.858,1.239c0,0,0.099-1.013,0.361-2.992c0.905-6.935,3.807-25.065,10.824-44.359
+                       c6.971-19.322,18.138-39.594,34.594-51.384c9.674-7.026,17.225-9.675,21.692-9.602c2.089,0,3.526,0.442,4.8,1.202
+                       c1.854,1.121,3.69,3.301,5.118,7.352c1.419,4.005,2.279,9.665,2.269,16.637c0.01,10.868-2.026,24.883-6.221,41.067
+                       c-2.839,11.022-8.3,21.303-13.888,31.203c-5.551,9.928-11.275,19.404-14.087,29.548c-1.121,4.132-1.528,8.391-1.528,12.568
+                       c0.063,16.737,6.366,32.777,6.564,33.392h-0.009c6.908,18.599,19.982,33.662,39.332,42.858
+                       c25.643,12.198,55.679,19.711,82.886,32.812c27.216,13.147,51.394,31.294,66.783,65.101c8.047,17.74,11.184,34.115,11.194,49.205
+                       c0,5.878-0.489,11.556-1.356,17.053l-1.066,6.673l6.726,0.76c13.734,1.537,24.413,13.029,24.404,27.116
+                       C449.033,452.966,436.772,465.245,421.6,465.272z" />
+                            <polygon class="st0" points="430.335,327.403 430.335,327.403 430.344,327.421 	" />
+                        </g>
+                    </svg>
+                </span>
+            </on-off-switch>
+        </div>
+
+
         <slide-up-element>
             <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random
                     UUID</strong>, or
@@ -221,12 +330,14 @@ function generateV7UUID() {
                 <summary>Why is this written in F#?</summary>
                 <p>While most web applications are written in JavaScript, we chose F# because:</p>
                 <ul>
-                    <li>F# can be transpiled to JavaScript using Fable compiler, making it work perfectly in browsers</li>
+                    <li>F# can be transpiled to JavaScript using Fable compiler, making it work perfectly in browsers
+                    </li>
                     <li>It provides strong type safety and immutability by default</li>
                     <li>Functional programming makes it easier to reason about code</li>
                     <li>It's a powerful language that's fun to work with - so why not?</li>
                 </ul>
-                <p>The end result is the same fast, efficient UUID generator you need, just written in a more robust language!</p>
+                <p>The end result is the same fast, efficient UUID generator you need, just written in a more robust
+                    language!</p>
             </details>
 
             <details name="accordion">
@@ -241,9 +352,10 @@ function generateV7UUID() {
 
             <details name="accordion">
                 <summary>Where can I find the source code?</summary>
-                <p>The complete source code for uuid.now is available on GitHub at 
-                <a href="https://github.com/OnurGumus/uuid.now">https://github.com/OnurGumus/uuid.now</a>. 
-                Feel free to explore, contribute, or use it as a reference for your own projects!</p>
+                <p>The complete source code for uuid.now is available on GitHub at
+                    <a href="https://github.com/OnurGumus/uuid.now">https://github.com/OnurGumus/uuid.now</a>.
+                    Feel free to explore, contribute, or use it as a reference for your own projects!
+                </p>
             </details>
         </section>
 
@@ -266,7 +378,7 @@ function generateV7UUID() {
         <small>Made by <a href="https://onur.works">onur.works</a></small>
     </footer>
     <script type=module src="build/App.js"></script>
-    
+
 </body>
 
 </html>

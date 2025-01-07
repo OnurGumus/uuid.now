@@ -25,7 +25,7 @@ type OnOffSwitch() as this =
         }
 
         .label {
-            background-color: #ffa000;  /* Orange/amber for off mode */
+            background-color:var(--on-color); 
             border-radius: 50px;
             cursor: pointer;
             display: flex;
@@ -39,7 +39,7 @@ type OnOffSwitch() as this =
         }
 
         .checkbox:checked + .label {
-            background-color: #1a237e;  /* Dark blue for on mode */
+            background-color:var(--off-color);
         }
 
         .ball {
@@ -184,7 +184,7 @@ type OnOffSwitch() as this =
 
                 let event =
                     Browser.Event.CustomEvent.Create(
-                        "state-changed",
+                        storeKey + "-state-changed",
                         !!{| bubbles = true
                              composed = true
                              detail = detail

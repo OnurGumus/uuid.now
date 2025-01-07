@@ -24,7 +24,7 @@ if lightDarkButton.hasAttribute("on") |> not then
     toggleDarkMode ()
 
 lightDarkButton.addEventListener (
-    "state-changed",
+    "theme-switch-state-changed",
     fun _ ->
         if document?startViewTransition then
             document?startViewTransition (fun _ -> toggleDarkMode ())
