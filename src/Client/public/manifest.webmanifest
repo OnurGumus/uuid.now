@@ -1,0 +1,47 @@
+{
+    "id": "/",
+    "scope": "/",
+    "name": "UUID.Now",
+    "dir": "ltr",
+    "lang": "en-US",
+    "display": "standalone",
+    "start_url": "/",
+    "short_name": "UUID",
+    "theme_color": "#E1477E",
+    "description": "UUID Generator",
+    "orientation": "any",
+    "background_color": "#000000",
+    "related_applications": [
+      {
+        "platform": "webapp",
+        "url": "https://uuid.now/manifest.webmanifest"
+      }
+    ],
+    "icons": [
+      {
+        "src": "/assets/images/logo-512-3.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "/assets/images/logo-512-3.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "assets/screenshots/screen.png",
+        "sizes": "2194x1186",
+        "type": "image/png"
+      }
+    ],
+    "categories": [
+      "business",
+      "utilities",
+      "productivity"
+    ],
+    "shortcuts": []
+  }

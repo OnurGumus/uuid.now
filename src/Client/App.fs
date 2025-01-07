@@ -6,7 +6,6 @@ open Fable.Core.JsInterop
 SlideUpElement.register ()
 CustomAnimatedText.register ()
 FancyButton.register ()
-LightDarkSwitch.register ()
 OnOffSwitch.register ()
 
 FlipBoard.getRandomV4Guid () |> FlipBoard.switchToGuid |> ignore
