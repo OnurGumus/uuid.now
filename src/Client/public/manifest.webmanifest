@@ -1,47 +1,72 @@
 {
-    "id": "/",
-    "scope": "/",
-    "name": "UUID.Now",
-    "dir": "ltr",
-    "lang": "en-US",
-    "display": "standalone",
-    "start_url": "/",
-    "short_name": "UUID",
-    "theme_color": "#E1477E",
-    "description": "UUID Generator",
-    "orientation": "any",
-    "background_color": "#000000",
-    "related_applications": [
-      {
-        "platform": "webapp",
-        "url": "https://uuid.now/manifest.webmanifest"
-      }
-    ],
-    "icons": [
-      {
-        "src": "/uuid-logo-512.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "any"
-      },
-      {
-        "src": "/uuid-logo-512.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "maskable"
-      }
-    ],
-    "screenshots": [
-      {
-        "src": "/uuid-screen.png",
-        "sizes": "2880x1824",
-        "type": "image/png"
-      }
-    ],
-    "categories": [
-      "development",
-      "utilities",
-      "productivity"
-    ],
-    "shortcuts": []
+  "id": "/",
+  
+  "scope": "/",
+
+  "scope_extensions": [
+    {
+      "origin": "https://uuid.now",
+      "path": "/"
+    }
+  ],
+
+  "name": "UUID.Now",
+  "dir": "ltr",
+  "lang": "en-US",
+
+  "display": "standalone",
+  
+  "start_url": "/",
+  "short_name": "UUID",
+  
+  "theme_color": "#E1477E",
+  "description": "UUID Generator",
+  "orientation": "any",
+  "background_color": "#000000",
+
+  "prefer_related_applications": false,
+
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://uuid.now/manifest.webmanifest"
+    }
+  ],
+
+  "iarc_rating_id": "YOUR_IARC_RATING_ID_HERE",
+
+  "icons": [
+    {
+      "src": "/uuid-logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/uuid-logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/uuid-screen.png",
+      "sizes": "2880x1824",
+      "type": "image/png"
+    }
+  ],
+
+  "categories": [
+    "development",
+    "utilities",
+    "productivity"
+  ],
+
+  "shortcuts": [],
+
+  "launch_handler": {
+    "client_mode": "focus-existing"
   }
+}
