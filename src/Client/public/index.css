@@ -175,6 +175,9 @@
         white-space: nowrap;
         border: 0;
     }
+    .icon-hidden {
+        visibility: hidden;
+    }
 }
 
 @layer layout {
