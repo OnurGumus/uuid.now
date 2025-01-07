@@ -87,8 +87,8 @@
         <h1>
             <custom-animated-text rotation>UUID.<span class="now">NOW</span></custom-animated-text>
         </h1>
-        <light-dark-switch class="light-dark" dark>
-            <span slot="moon-icon">
+        <on-off-switch class="light-dark on-off" on>
+            <span slot="off-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 A7 7 0 0 0 21 12.79z"
                         stroke="currentColor"
@@ -98,7 +98,7 @@
                         stroke-linejoin="round"/>
                 </svg>
             </span>
-            <span slot="sun-icon">
+            <span slot="on-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="currentColor"/>
                     <line x1="12" y1="3" x2="12" y2="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -111,7 +111,7 @@
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
             </span>
-        </light-dark-switch>
+        </on-off-switch>
         <slide-up-element>
             <p class="intro">Easily generate <strong>Empty UUID</strong> (all zeros), <strong>Version 4 Random
                     UUID</strong>, or

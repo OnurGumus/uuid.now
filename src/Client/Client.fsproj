@@ -11,6 +11,7 @@
     <Compile Include="CustomAnimatedText.fs" />
     <Compile Include="FlipBoard.fs" />
     <Compile Include="LightDarkSwitch.fs" />
+      <Compile Include="OnOffSwitch.fs" />
     <Compile Include="App.fs" />
     <Content Include="paket.references" />
   </ItemGroup>

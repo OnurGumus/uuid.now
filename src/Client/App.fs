@@ -7,6 +7,7 @@ SlideUpElement.register ()
 CustomAnimatedText.register ()
 FancyButton.register ()
 LightDarkSwitch.register ()
+OnOffSwitch.register ()
 
 FlipBoard.getRandomV4Guid () |> FlipBoard.switchToGuid |> ignore
 
@@ -20,11 +21,11 @@ let toggleDarkMode () =
     el?triggerSlotChanged() |> ignore
 
 let lightDarkButton = document.querySelector(".light-dark")
-if lightDarkButton.hasAttribute("dark") |> not then
+if lightDarkButton.hasAttribute("on") |> not then
     toggleDarkMode ()
 
 lightDarkButton.addEventListener (
-    "theme-changed",
+    "state-changed",
     fun _ ->
         if document?startViewTransition then
             document?startViewTransition (fun _ -> toggleDarkMode ())
