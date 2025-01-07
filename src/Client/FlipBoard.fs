@@ -61,6 +61,13 @@ let charList =
 
 let FLIP_COUNT = 36 // 8-4-4-4-12
 
+[<Literal>]
+let SLOW_FLIP_SPEED = 50
+
+[<Literal>]
+let FAST_FLIP_SPEED = 1
+let mutable FLIP_SPEED = FAST_FLIP_SPEED // default speed in milliseconds
+
 let board = document.getElementById ("flipBoard")
 
 // Add a hidden aria-live region for final UUID announcements
@@ -159,9 +166,8 @@ let switchChar (flipEl: HTMLElement) (targetChar: string) =
                 let nextC = charList.[actualI]
                 setFlipValue flipEl nextC
                 setOverlayText flipEl nextC
-
                 if nextC <> targetChar then
-                    window.setTimeout (step, 80) |> ignore
+                    window.setTimeout (step, FLIP_SPEED) |> ignore
 
         step ()
 
@@ -173,7 +179,7 @@ let switchToGuid (guidStr: string) =
     |> Array.iteri (fun i flipEl ->
         let c = if i < guidStr.Length then guidStr.[i].ToString() else "-"
         // Stagger the flips a bit
-        window.setTimeout ((fun () -> switchChar flipEl c), i * 50) |> ignore)
+        window.setTimeout ((fun () -> switchChar flipEl c), i * FLIP_SPEED) |> ignore)
 
     window.setTimeout (
         (fun () ->
@@ -260,9 +266,23 @@ copyBtn.addEventListener (
         toast?showPopover ()
 )
 
+
+
 document.addEventListener (
     "DOMContentLoaded",
     fun _ ->
+        let speedButton = document.querySelector(".speed-toggle")
+        if speedButton.hasAttribute("on") |> not then 
+            FLIP_SPEED <- FAST_FLIP_SPEED
+        else
+            FLIP_SPEED <- SLOW_FLIP_SPEED
+
+        speedButton.addEventListener ("speed-switch-state-changed", fun e ->
+            if e?detail?``checked`` then
+                FLIP_SPEED <- SLOW_FLIP_SPEED
+            else
+                FLIP_SPEED <- FAST_FLIP_SPEED
+            )
         let toast = document.getElementById ("toast")
 
         toast.addEventListener (
