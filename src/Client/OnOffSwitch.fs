@@ -6,7 +6,7 @@ open Fable.Core
 
 [<AttachMembers>]
 [<AllowNullLiteral>]
-type OnOffSwitch() as this =
+type OnOffSwitch()  =
     inherit HTMLElement()
     let mutable isOn = false
     let mutable storeKey = "isOn"

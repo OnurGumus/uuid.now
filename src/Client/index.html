@@ -389,6 +389,12 @@ function generateV7UUID() {
         <small>Made by <a href="https://onur.works">onur.works</a></small>
     </footer>
     <script type=module src="build/App.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+
+    </script>
 
 </body>
 
