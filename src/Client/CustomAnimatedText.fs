@@ -13,115 +13,120 @@ type CustomAnimatedText() =
     let mutable colorSchemeMediaQuery = None
     let mutable savedInnerContainer = Unchecked.defaultof<Browser.Types.HTMLElement>
     let mutable savedSlot = Unchecked.defaultof<Browser.Types.HTMLElement>
+    let mutable isProcessing = false
 
     let slotChanged(self: Browser.Types.HTMLElement, innerContainer :Browser.Types.HTMLElement, slot:Browser.Types.HTMLElement) = 
-        let assignedNodes = unbox<obj array> (slot?assignedNodes())
-        // Clear any existing spans in innerContainer
-        innerContainer?replaceChildren()
+        if isProcessing then
+            ()
+        else
+            isProcessing <- true
+            let assignedNodes = unbox<obj array> (slot?assignedNodes())
+            // Clear any existing spans in innerContainer
+            innerContainer?replaceChildren()
 
-        // First pass: count total letters
-        let mutable totalLetters = 0
-        assignedNodes
-        |> Array.iter (fun node ->
-            let nodeType = unbox<int> node?nodeType
-            if nodeType = 1 || nodeType = 3 then // ELEMENT_NODE or TEXT_NODE
-                let textContent = (node?textContent : string).Trim()
-                if not (System.String.IsNullOrEmpty textContent) then
-                    totalLetters <- totalLetters + textContent.Length
-        )
-
-        // Animation parameters
-        let totalDuration = 1.3
-        let minDuration = 1.3
-        let step = (totalDuration - minDuration) / float totalLetters
-        let initialOffset = 10
-        let mutable currentIndex = 0
-
-
-        // Defer to the next animation frame
-        window.requestAnimationFrame(fun _ ->
+            // First pass: count total letters
+            let mutable totalLetters = 0
             assignedNodes
-            |> Array.filter (fun node -> 
+            |> Array.iter (fun node ->
                 let nodeType = unbox<int> node?nodeType
-                let textContent = (node?textContent : string).Trim()
-                (nodeType = 1 || nodeType = 3) && not (System.String.IsNullOrEmpty textContent))
-            |> Array.iteri (fun idx node ->
-                let nodeType = unbox<int> node?nodeType
-                let textContent = (node?textContent : string).Trim()
-                if not (System.String.IsNullOrEmpty textContent) then
-                    // Grab the computed styles (from node if element, or from parent if text)
-                    let styles =
-                        if nodeType = 1 then // ELEMENT_NODE
-                            window?getComputedStyle(node :?> Element)
-                        else
-                            window?getComputedStyle(unbox<Element> node?parentElement)
+                if nodeType = 1 || nodeType = 3 then // ELEMENT_NODE or TEXT_NODE
+                    let textContent = (node?textContent : string).Trim()
+                    if not (System.String.IsNullOrEmpty textContent) then
+                        totalLetters <- totalLetters + textContent.Length
+            )
 
-                    // Helper to copy certain style props from the computed style
-                    let applyStyles (el: HTMLElement) =
-                        [ 
-                        "color"
-                        "fontFamily"
-                        "fontSize"
-                        "fontWeight"
-                        "fontStyle"
-                        "letterSpacing"
-                        "lineHeight"
-                        "textShadow" ]
-                        |> List.iter (fun prop ->
-                            el?style?(prop) <- styles?(prop)
-                        )
+            // Animation parameters
+            let totalDuration = 1.3
+            let minDuration = 1.3
+            let step = (totalDuration - minDuration) / float totalLetters
+            let initialOffset = 10
+            let mutable currentIndex = 0
 
-                    // Create a span per character
-                    for i in 0 .. textContent.Length - 1 do
-                        let ch = textContent.[i]
-                        let span = document.createElement("span")
-                        span.textContent <- if ch = ' ' then "\u00A0" else string ch
-                        span.setAttribute("aria-hidden", "true")
-                        applyStyles (span :?> HTMLElement)
 
-                        let delay = float currentIndex * step
-                        let duration = totalDuration - delay
-
-                        // Decide if we have rotation
-                        let hasRotation = self.hasAttribute("rotation")
-                        let className =
-                            if hasRotation then
-                                "with-rotation"
+            // Defer to the next animation frame
+            window.requestAnimationFrame(fun _ ->
+                assignedNodes
+                |> Array.filter (fun node -> 
+                    let nodeType = unbox<int> node?nodeType
+                    let textContent = (node?textContent : string).Trim()
+                    (nodeType = 1 || nodeType = 3) && not (System.String.IsNullOrEmpty textContent))
+                |> Array.iteri (fun idx node ->
+                    let nodeType = unbox<int> node?nodeType
+                    let textContent = (node?textContent : string).Trim()
+                    if not (System.String.IsNullOrEmpty textContent) then
+                        // Grab the computed styles (from node if element, or from parent if text)
+                        let styles =
+                            if nodeType = 1 then // ELEMENT_NODE
+                                window?getComputedStyle(node :?> Element)
                             else
-                                "no-rotation"
-                        
-                        span.classList.add(className)
+                                window?getComputedStyle(unbox<Element> node?parentElement)
 
-                        // Set CSS custom properties
-                        span?style?setProperty("--animation-delay", sprintf "%fs" delay)
-                        span?style?setProperty("--animation-duration", sprintf "%fs" duration)
+                        // Helper to copy certain style props from the computed style
+                        let applyStyles (el: HTMLElement) =
+                            [ 
+                            "color"
+                            "fontFamily"
+                            "fontSize"
+                            "fontWeight"
+                            "fontStyle"
+                            "letterSpacing"
+                            "lineHeight"
+                            "textShadow" ]
+                            |> List.iter (fun prop ->
+                                el?style?(prop) <- styles?(prop)
+                            )
 
-                        if hasRotation then
-                            span?style?setProperty("--initial-y", sprintf "%fpx" (float (initialOffset) * float (currentIndex + 4)))
+                        // Create a span per character
+                        for i in 0 .. textContent.Length - 1 do
+                            let ch = textContent.[i]
+                            let span = document.createElement("span")
+                            span.textContent <- if ch = ' ' then "\u00A0" else string ch
+                            span.setAttribute("aria-hidden", "true")
+                            applyStyles (span :?> HTMLElement)
 
-                        innerContainer.appendChild(span) |> ignore
-                        currentIndex <- currentIndex + 1
+                            let delay = float currentIndex * step
+                            let duration = totalDuration - delay
 
-                    // Only add space if both current and next nodes have visible content
-                    let nextNode = 
-                        if idx + 1 < assignedNodes.Length then 
-                            let next = assignedNodes.[idx + 1]
-                            let nextType = unbox<int> next?nodeType
-                            if (nextType = 1 || nextType = 3) && 
-                               not (System.String.IsNullOrEmpty((next?textContent : string).Trim())) then
-                                Some next
+                            // Decide if we have rotation
+                            let hasRotation = self.hasAttribute("rotation")
+                            let className =
+                                if hasRotation then
+                                    "with-rotation"
+                                else
+                                    "no-rotation"
+                            
+                            span.classList.add(className)
+
+                            // Set CSS custom properties
+                            span?style?setProperty("--animation-delay", sprintf "%fs" delay)
+                            span?style?setProperty("--animation-duration", sprintf "%fs" duration)
+
+                            if hasRotation then
+                                span?style?setProperty("--initial-y", sprintf "%fpx" (float (initialOffset) * float (currentIndex + 4)))
+
+                            innerContainer.appendChild(span) |> ignore
+                            currentIndex <- currentIndex + 1
+
+                        // Only add space if both current and next nodes have visible content
+                        let nextNode = 
+                            if idx + 1 < assignedNodes.Length then 
+                                let next = assignedNodes.[idx + 1]
+                                let nextType = unbox<int> next?nodeType
+                                if (nextType = 1 || nextType = 3) && not (System.String.IsNullOrEmpty((next?textContent : string).Trim())) then
+                                    Some next
+                                else None
                             else None
-                        else None
 
-                    match nextNode with
-                    | Some _ when not (textContent.EndsWith(".")) ->  // Don't add space after periods
-                        let space = document.createElement("span")
-                        space.textContent <- "\u00A0"
-                        applyStyles (space :?> HTMLElement)
-                        innerContainer.appendChild(space) |> ignore
-                    | _ -> ()
-        )
-        ) |> ignore
+                        match nextNode with
+                        | Some _ when not (textContent.EndsWith(".")) ->  // Don't add space after periods
+                            let space = document.createElement("span")
+                            space.textContent <- "\u00A0"
+                            applyStyles (space :?> HTMLElement)
+                            innerContainer.appendChild(space) |> ignore
+                        | _ -> ()
+                )
+                isProcessing <- false
+            ) |> ignore
     do
         // Shadow root
         let container = document.createElement("div")
@@ -225,6 +230,7 @@ type CustomAnimatedText() =
         slotChanged(jsThis, savedInnerContainer, savedSlot)
 
     override this.connectedCallback() =
+        printfn "connected"
         let mediaQuery = window?matchMedia("(prefers-color-scheme: dark)")
         colorSchemeMediaQuery <- Some mediaQuery
         let handler = fun _ -> printf "onur"; slotChanged(jsThis, savedInnerContainer, savedSlot)
